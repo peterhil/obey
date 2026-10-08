@@ -3,7 +3,7 @@
 // import escapeRegexp from 'escape-string-regexp'
 import { debounce, isEmpty, match } from 'rambdax'
 
-import { debug } from '~/lib/debug'
+import { debug, isDev } from '~/lib/debug'
 import { findContainers } from '~/lib/dom'
 import { iUniq } from '~/lib/utils'
 import { loadRules } from '~/lib/options'
@@ -105,7 +105,7 @@ export async function main () {
     const keywords = await loadRules(document.location.host)
 
     debug('Universal main:', { containers, keywords })
-    document.body.classList.add('obey-debug')
+    if (isDev) document.body.classList.add('obey-debug')
 
     await markContainers(containers)
     await hideElements(keywords)
