@@ -43,7 +43,8 @@ body.obey-debug {
 
     details.obey,
     details.obey-prepend {
-        flex-grow: 1;
+        /* TODO Handle 'flex-direction: row' elements better, maybe wrap children in flex container? */
+        flex: 1 0 100%;
 
         summary {
             font-size: smaller;
