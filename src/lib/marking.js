@@ -6,16 +6,7 @@ function markElement (node) {
 }
 
 function markContainer (node) {
-    // Skip if child count is unchanged
-    if (node.childElementCount.toString() === node.dataset.obeyChildElementCount) {
-        return
-    }
-
     const mostCommon = findSimilarElements(node)
-
-    if (mostCommon.length <= 1) {
-        return
-    }
 
     node.dataset.obey = 'container'
     node.dataset.obeyChildElementCount = node.childElementCount
