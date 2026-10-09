@@ -116,9 +116,8 @@ export function findContainers (minChildCount) {
 }
 
 export function findSimilarElements (container) {
-    const excludedTags = ['SCRIPT', 'IFRAME', 'STYLE']
     const children = [...container.childNodes].filter(
-        (node) => (node.tagName && !includes(node.tagName, excludedTags))
+        (node) => node.tagName && isVisible(node)
     )
     const similar = groupBy(
         function grouper (node) {
