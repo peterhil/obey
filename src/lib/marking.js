@@ -1,11 +1,7 @@
 import { forEach } from 'rambdax'
 import { findSimilarElements, parents } from '$lib/dom'
 
-const minTextLength = 45
-
 function markElement (node) {
-    if (node.innerText.length <= minTextLength) return
-
     node.dataset.obey = 'element'
 }
 
