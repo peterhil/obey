@@ -60,6 +60,20 @@ export function parents (node, selector) {
     return parents
 }
 
+// Copyright 2024 Borislav Hadzhiev (ISC License)
+// https://bobbyhadz.com/blog/javascript-check-if-two-elements-overlap
+function elementsOverlap (elem1, elem2) {
+    const bounds1 = elem1.getBoundingClientRect()
+    const bounds2 = elem2.getBoundingClientRect()
+
+    return !(
+        bounds1.top > bounds2.bottom ||
+        bounds1.right < bounds2.left ||
+        bounds1.bottom < bounds2.top ||
+        bounds1.left > bounds2.right
+    )
+}
+
 export function findNodesBy (filterFn) {
     const nodeIterator = document.createNodeIterator(
         document.body,
