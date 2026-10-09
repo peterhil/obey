@@ -52,7 +52,7 @@ export function sameScrollSize (nodeA, nodeB) {
 }
 
 export function visibleChildren(container) {
-    return [...container.childNodes].filter(isVisible)
+    return [...container.children].filter(isVisible)
 }
 
 // From https://youmightnotneedjquery.com/#parents
@@ -118,10 +118,7 @@ export function findContainers (minChildCount) {
 }
 
 export function findSimilarElements (container) {
-    const children = [...container.childNodes].filter(
-        (node) => node.tagName && isVisible(node)
-    )
-
+    const children = [...container.children].filter(isVisible)
     const grouped = groupBy(
         function grouper (node) {
             return (node.tagName && node.classList)
