@@ -12,6 +12,8 @@ import {
     values,
 } from 'rambdax'
 
+import { debug } from '~/lib/debug'
+
 const containerTags = [
     // -- Content sectioning
     'ARTICLE',
@@ -119,7 +121,8 @@ export function findSimilarElements (container) {
     const children = [...container.childNodes].filter(
         (node) => node.tagName && isVisible(node)
     )
-    const similar = groupBy(
+
+    const grouped = groupBy(
         function grouper (node) {
             return (node.tagName && node.classList)
                 ? [node.tagName, ...[...node.classList].sort()].join(',')
@@ -127,14 +130,13 @@ export function findSimilarElements (container) {
         },
         children
     )
-    // TODO If most common element counts are a tie include all of them
-    const limit = mean(values(map(length, similar)))
-    const mostCommon = flatten(filter(nodes => nodes.length >= limit, values(similar)))
-    // debug('findSimilarElements:', { mostCommon, similar, limit })
+    const similar = values(grouped).filter(list => list.length > 1)
 
-    if (mostCommon.length <= 1) {
-        return []
-    }
+    if (similar.length === 0) return []
 
-    return mostCommon
+    const limit = mean(map(length, similar))
+    const result = flatten(filter(nodes => nodes.length >= limit, similar))
+    // debug('findSimilarElements:', { limit, result, grouped, similar })
+
+    return result
 }
