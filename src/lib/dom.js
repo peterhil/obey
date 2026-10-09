@@ -33,7 +33,13 @@ export function isVertical (elem) {
 }
 
 export function isVisible (node) {
-    return !!(node.offsetWidth && node.offsetHeight)
+    const visible = !!(
+        node.checkVisibility
+            && node.checkVisibility()
+            && elementsOverlap(document.body, node)
+    )
+
+	return visible
 }
 
 export function sameScrollSize (nodeA, nodeB) {
@@ -44,9 +50,7 @@ export function sameScrollSize (nodeA, nodeB) {
 }
 
 export function visibleChildren(container) {
-    return [...container.childNodes].filter(
-        node => node.offsetLeft >= 0 && node.offsetTop >= 0
-    )
+    return [...container.childNodes].filter(isVisible)
 }
 
 // From https://youmightnotneedjquery.com/#parents
