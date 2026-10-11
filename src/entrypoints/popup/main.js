@@ -1,12 +1,12 @@
 /* global document */
 
-import './app.css'
+import './popup.css'
 
 import { mount } from 'svelte'
 
-import App from './App.svelte'
+import Popup from './Popup.svelte'
 
-const app = mount(App, {
+const app = mount(Popup, {
     target: document.getElementById('app'),
 })
 
