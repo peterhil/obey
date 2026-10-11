@@ -1,7 +1,7 @@
 <script>
     import { keys } from 'rambdax'
 
-    import OptionsKeyword from '$lib/component/OptionsKeyword.svelte'
+    import Keyword from '$lib/component/options/Keyword.svelte'
     import { options } from '$lib/options'
     // import { domains } from '$lib/store/domains'
 
@@ -19,7 +19,7 @@
 
             <ul>
                 {#each rules[domain] as word}
-                    <OptionsKeyword {word} {domain} />
+                    <Keyword {word} {domain} />
                 {/each}
             </ul>
 
