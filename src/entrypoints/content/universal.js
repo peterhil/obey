@@ -51,7 +51,7 @@ function addDetails (element, reason, keywords) {
 
 function regexpPattern (keywords) {
     const keys = keywords.map(RegExp.escape)
-    const pattern = '\\b(' + keys.join('|') + '\\b)'
+    const pattern = '\\b(' + keys.join('|') + ')\\b'
 
     return pattern
 }
