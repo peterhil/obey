@@ -4,9 +4,9 @@ import './options.css'
 
 import { mount } from 'svelte'
 
-import OptionsPage from './OptionsPage.svelte'
+import Options from '~/component/Options.svelte'
 
-const app = mount(OptionsPage, {
+const app = mount(Options, {
     target: document.getElementById('app'),
 })
 
