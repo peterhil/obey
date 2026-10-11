@@ -1,7 +1,17 @@
 <script>
-    import { debug } from '~/lib/debug'
+    import { filter } from 'rambdax'
 
-    let { path, remove, word } = $props()
+    import { debug } from '~/lib/debug'
+    import { words } from '~/store/words'
+
+    let { path, word } = $props()
+
+    function remove () {
+        const filtered = filter((item) => item !== word, $words[path])
+
+        debug('KeywordList remove:', {words: $words[path], filtered})
+        $words[path] = filtered
+    }
 </script>
 
 <li>

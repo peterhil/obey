@@ -1,5 +1,5 @@
 <script>
-    import { filter, prepend } from 'rambdax'
+    import { prepend } from 'rambdax'
 
     import Keyword from '~/component/options/Keyword.svelte'
     import { debug } from '~/lib/debug'
@@ -17,13 +17,6 @@
         $words[path] = sorted
         debug('KeywordList add:', $words[path])
     }
-
-    function remove (word, path) {
-        const filtered = filter((w) => w !== word, $words[path])
-
-        debug('KeywordList remove:', {words: $words[path], filtered})
-        $words[path] = filtered
-    }
 </script>
 
 <section class="path">
@@ -31,7 +24,7 @@
 
     <ul>
         {#each $words[path] as word (word)}
-            <Keyword {word} {path} remove={remove(word, path)} />
+            <Keyword {word} {path} />
         {/each}
     </ul>
 
