@@ -3,17 +3,17 @@
 
     import KeywordList from '~/component/options/KeywordList.svelte'
     import { options } from '~/lib/options'
-    // import { domains } from '~/store/domains'
+    // import { paths } from '~/store/paths'
 
     const rules = options.rules
-    const domains = keys(rules)
+    const paths = keys(rules)
 </script>
 
 <div>
     <h1>Obey options</h1>
     <h2>Keywords to hide</h2>
 
-    {#each domains as domain}
-        <KeywordList {domain} {rules}></KeywordList>
+    {#each paths as path}
+        <KeywordList {path} {rules}></KeywordList>
     {/each}
 </div>

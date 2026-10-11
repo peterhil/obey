@@ -1,15 +1,15 @@
 <script>
     import Keyword from '~/component/options/Keyword.svelte'
 
-    const { domain, rules} = $props()
+    const { path, rules} = $props()
 </script>
 
-<section class="domain">
-    <h3>{domain === '*' ? 'All domains' : domain}</h3>
+<section class="path">
+    <h3>{path === '*' ? 'Everywhere' : path}</h3>
 
     <ul>
-        {#each rules[domain] as word}
-            <Keyword {word} {domain} />
+        {#each rules[path] as word}
+            <Keyword {word} {path} />
         {/each}
     </ul>
 

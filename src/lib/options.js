@@ -33,8 +33,8 @@ export const options = {
 
 export async function loadRules (url) {
     const matched = filter(
-        (_, domain) => {
-            return (domain === '*' || !!url.match(domain))
+        (_, path) => {
+            return (path === '*' || !!url.match(path))
         },
         options.rules)
     const rules = flatten(values(matched))

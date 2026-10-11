@@ -1,3 +1,3 @@
 import { writable } from 'svelte/store'
 
-export const domains = writable(['*'])
+export const paths = writable(['*'])

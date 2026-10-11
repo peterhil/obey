@@ -1,14 +1,14 @@
 <script>
     import { debug } from '~/lib/debug'
 
-    let { domain, word } = $props()
+    let { path, word } = $props()
 
-    function remove (word, domain) {
-        debug('Remove:', {word, domain})
+    function remove (word, path) {
+        debug('Remove:', {word, path})
     }
 </script>
 
 <li>
     {word}
-    <span class="remove" onclick={() => remove(word, domain)}>&times;</span>
+    <span class="remove" onclick={() => remove(word, path)}>&times;</span>
 </li>
