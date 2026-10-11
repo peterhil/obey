@@ -52,7 +52,10 @@ export function sameScrollSize (nodeA, nodeB) {
 }
 
 export function visibleChildren(container) {
-    return [...container.children].filter(isVisible)
+    // Do not use isVisible for filtering as elements might be in scroll overflow
+    return [...container.children].filter(
+        node => node.offsetLeft >= 0 && node.offsetTop >= 0
+    )
 }
 
 // From https://youmightnotneedjquery.com/#parents
