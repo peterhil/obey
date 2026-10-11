@@ -1,5 +1,6 @@
 import { forEach } from 'rambdax'
-import { findSimilarElements, parents } from '$lib/dom'
+
+import { findSimilarElements, parents } from '~/lib/dom'
 
 function markElement (node) {
     node.dataset.obey = 'element'

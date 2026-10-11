@@ -1,9 +1,9 @@
 <script>
     import { keys } from 'rambdax'
 
-    import KeywordList from '$lib/component/options/KeywordList.svelte'
-    import { options } from '$lib/options'
-    // Import { domains } from '$lib/store/domains'
+    import KeywordList from '~/component/options/KeywordList.svelte'
+    import { options } from '~/lib/options'
+    // import { domains } from '~/store/domains'
 
     const rules = options.rules
     const domains = keys(rules)

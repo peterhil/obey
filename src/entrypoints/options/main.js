@@ -2,8 +2,9 @@
 
 import './options.css'
 
-import OptionsPage from './OptionsPage.svelte'
 import { mount } from 'svelte'
+
+import OptionsPage from './OptionsPage.svelte'
 
 const app = mount(OptionsPage, {
     target: document.getElementById('app'),

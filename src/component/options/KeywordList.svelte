@@ -1,5 +1,5 @@
 <script>
-    import Keyword from '$lib/component/options/Keyword.svelte'
+    import Keyword from '~/component/options/Keyword.svelte'
 
     const { domain, rules} = $props()
 </script>

@@ -1,5 +1,5 @@
 <script>
-    import Options from '$lib/component/Options.svelte'
+    import Options from '~/component/Options.svelte'
 </script>
 
 <Options />
