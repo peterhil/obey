@@ -2,9 +2,8 @@
     import { filter } from 'rambdax'
 
     import { debug } from '~/lib/debug'
-    import { words } from '~/store/words'
 
-    let { path, word } = $props()
+    let { path, word, words } = $props()
 
     function remove () {
         const filtered = filter((item) => item !== word, $words[path])

@@ -24,7 +24,7 @@
 
     <ul>
         {#each $words[path] as word (word)}
-            <Keyword {word} {path} />
+            <Keyword {word} {path} {words} />
         {/each}
     </ul>
 
