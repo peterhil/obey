@@ -4,18 +4,18 @@
     import Keyword from '~/component/options/Keyword.svelte'
     import { debug } from '~/lib/debug'
     import { iSort, iUniq } from '~/lib/utils'
-    import { words } from '~/store/words'
+    import { wordStorage } from '~/store/words'
 
     const { path, rules} = $props()
+    const words = await wordStorage(path)
 
     let newWord = ''
 
     function add (newWord, path) {
-        const list = $words[path] ? prepend(newWord, $words[path]) : [newWord]
+        const list = $words?.length > 0 ? prepend(newWord, $words) : [newWord]
         const sorted = iSort(iUniq(list))
 
-        $words[path] = sorted
-        debug('KeywordList add:', $words[path])
+        $words = sorted
     }
 </script>
 
@@ -23,7 +23,7 @@
     <h3>{path === '*' ? 'Everywhere' : path}</h3>
 
     <ul>
-        {#each $words[path] as word (word)}
+        {#each $words as word (word)}
             <Keyword {word} {path} {words} />
         {/each}
     </ul>

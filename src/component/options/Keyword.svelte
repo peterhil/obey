@@ -6,10 +6,9 @@
     let { path, word, words } = $props()
 
     function remove () {
-        const filtered = filter((item) => item !== word, $words[path])
+        const filtered = filter((item) => item !== word, $words)
 
-        debug('KeywordList remove:', {words: $words[path], filtered})
-        $words[path] = filtered
+        $words = filtered
     }
 </script>
 
