@@ -7,7 +7,8 @@ function markElement (node) {
 }
 
 function markContainer (node) {
-    const mostCommon = findSimilarElements(node)
+    const onlySimilar = false
+    const mostCommon = onlySimilar ? findSimilarElements(node) : [...node.children]
 
     node.dataset.obey = 'container'
     node.dataset.obeyChildElementCount = node.childElementCount
