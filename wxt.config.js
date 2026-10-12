@@ -43,4 +43,13 @@ export default defineConfig({
             },
         ],
     },
+    svelte: {
+        vite: {
+            compilerOptions: {
+		        experimental: {
+			        async: true
+		        }
+	        }
+        },
+    },
 })
