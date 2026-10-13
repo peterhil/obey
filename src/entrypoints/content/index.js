@@ -7,17 +7,24 @@ import { debounce } from 'rambdax'
 import { debug } from '~/lib/debug'
 import { obey } from './universal'
 
-export const onRequest = debounce((request) => {
+const debouncedObey = debounce(obey, 1500)
+
+const onRequest = (request) => {
     if (request.type === 'xhr' && request.details.thirdParty === false) {
         debug('XmlHttpRequest:', { request })
-        obey()
+        debouncedObey()
     }
-}, 1500)
+}
 
-export const onMutation = debounce((mutations) => {
+const onMutation = (mutations) => {
     debug('Mutations:', mutations)
-    obey()
-}, 1500)
+    debouncedObey()
+}
+
+const onNavigation = (event) => {
+    debug('Navigation:', {event})
+    debouncedObey()
+}
 
 export default defineContentScript({
     matches: ['<all_urls>'],
@@ -30,10 +37,12 @@ export default defineContentScript({
 
             observer.observe(document.body, { childList: true, subtree: true })
             browser.runtime.onMessage.addListener(onRequest)
+            ctx.addEventListener(window, 'wxt:locationchange', onNavigation)
 
             const removeInvalidatedListeners = ctx.onInvalidated(() => {
                 observer.disconnect()
                 browser.runtime.onMessage.removeListener(onRequest)
+                ctx.removeEventListener(window, 'wxt:locationchange', onNavigation)
             })
             removeInvalidatedListeners()
         }
