@@ -19,7 +19,7 @@
     }
 </script>
 
-<section class="path">
+<article class="path">
     <h3>{path === '*' ? 'Everywhere' : path}</h3>
 
     <ul>
@@ -28,12 +28,14 @@
         {/each}
     </ul>
 
-    <div class="input-group">
-        <input
-            bind:value={newWord}
-            placeholder="Keyword"
-            type="text"
-            />
-        <button onclick={() => add(newWord, path)}>Add</button>
-    </div>
-</section>
+    <footer>
+        <div role="group">
+            <input
+                bind:value={newWord}
+                placeholder="Keyword"
+                type="text"
+                />
+            <button onclick={() => add(newWord, path)}>Add</button>
+        </div>
+    </footer>
+</article>
