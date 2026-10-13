@@ -34,10 +34,6 @@ body.obey-debug {
     }
 }
 
-[data-obey="container"] {
-    height: auto;
-}
-
 [data-obey-status="hidden"] {
     /* Make sure the element displays nicely */
     min-height: auto;
@@ -47,8 +43,7 @@ body.obey-debug {
 
     details.obey,
     details.obey-prepend {
-        /* TODO Handle 'flex-direction: row' elements better, maybe wrap children in flex container? */
-        flex: 1 0 100%;
+        flex: 1 1 auto;
 
         summary {
             font-size: smaller;
