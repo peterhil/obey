@@ -99,12 +99,12 @@ function hideElements (keywords) {
     })
 }
 
-export async function main () {
+export async function obey () {
     const minChildCount = 5
     const containers = await findContainers(minChildCount)
     const keywords = await loadRules(document.location.host)
 
-    debug('Universal main:', { containers, keywords })
+    debug('Checking content:', { containers, keywords })
     if (isDev) document.body.classList.add('obey-debug')
 
     await markContainers(containers)
@@ -114,13 +114,13 @@ export async function main () {
 export const onRequest = debounce((request) => {
     if (request.type === 'xhr' && request.details.thirdParty === false) {
         debug('XmlHttpRequest:', { request })
-        main()
+        obey()
     }
 }, 1500)
 
 export const onMutation = debounce((mutations) => {
     debug('Mutations:', mutations)
-    main()
+    obey()
 }, 1500)
 
 const observer = new MutationObserver(onMutation)
