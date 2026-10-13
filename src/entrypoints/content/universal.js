@@ -1,4 +1,4 @@
-/* global MutationObserver, console, document */
+/* global document */
 
 // import escapeRegexp from 'escape-string-regexp'
 import { debounce, isEmpty, match } from 'rambdax'
@@ -111,19 +111,3 @@ export async function obey () {
     await markContainers(containers)
     await hideElements(keywords)
 }
-
-export const onRequest = debounce((request) => {
-    if (request.type === 'xhr' && request.details.thirdParty === false) {
-        debug('XmlHttpRequest:', { request })
-        obey()
-    }
-}, 1500)
-
-export const onMutation = debounce((mutations) => {
-    debug('Mutations:', mutations)
-    obey()
-}, 1500)
-
-const observer = new MutationObserver(onMutation)
-
-observer.observe(document.body, { childList: true, subtree: true })
