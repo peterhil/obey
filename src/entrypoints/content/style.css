@@ -34,6 +34,10 @@ body.obey-debug {
     }
 }
 
+[data-obey="container"] {
+    height: auto;
+}
+
 [data-obey-status="hidden"] {
     /* Make sure the element displays nicely */
     min-height: auto;
