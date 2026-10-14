@@ -1,35 +1,33 @@
 import { filter, flatten, values } from 'rambdax'
 
 // TODO Implement options UI
-export const options = {
-    rules: {
-        '*': [
-            'AI',
-            'Elon Musk',
-            'Orpo',
-            'Purra',
-            'Tekoäly',
-            'Trump',
-        ],
-        'facebook.com': [
-            'Follow',
-            'Reels',
-        ],
-        'linkedin.com': [
-            'Applied',
-            'Java',
-            'LLM',
-            'LLMs',
-            'On-site',
-            'Php',
-            'Power platform',
-            'Promoted',
-            'Viewed',
-        ],
-        'startpage.com': [
-            'w3schools.com',
-        ],
-    }
+export const defaultRules = {
+    '*': [
+        'AI',
+        'Elon Musk',
+        'Orpo',
+        'Purra',
+        'Tekoäly',
+        'Trump',
+    ],
+    'facebook.com': [
+        'Follow',
+        'Reels',
+    ],
+    'linkedin.com': [
+        'Applied',
+        'Java',
+        'LLM',
+        'LLMs',
+        'On-site',
+        'Php',
+        'Power platform',
+        'Promoted',
+        'Viewed',
+    ],
+    'startpage.com': [
+        'w3schools.com',
+    ],
 }
 
 export async function loadRules (url) {
