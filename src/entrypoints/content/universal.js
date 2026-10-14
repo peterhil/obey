@@ -9,15 +9,11 @@ import { iUniq } from '~/lib/utils'
 import { loadRules } from '~/lib/options'
 import { markContainers } from '~/lib/marking'
 
-function usePrepend () {
-    // Use compromise prepend method on Facebook
-    return !!document.location.origin.match('facebook.com')
-}
-
 function addDetails (element, reason, keywords) {
     const children = element.childNodes
     const details = document.createElement('details')
     const summary = document.createElement('summary')
+    const usePrepend = !!document.location.origin.match('facebook.com')
 
     summary.innerText = reason
     // debug('addDetails:', {element, reason})
@@ -36,11 +32,13 @@ function addDetails (element, reason, keywords) {
     else {
         element.dataset.obeyStatus = 'hidden'
 
-        if (usePrepend()) {
+        // Use compromise prepend method on Facebook
+        if (usePrepend) {
             details.classList.add('obey-prepend')
             details.append(summary)
             element.prepend(details)
         }
+        // The default method is searchable
         else {
             details.classList.add('obey')
             details.replaceChildren(summary, ...children)
