@@ -1,7 +1,7 @@
 <script>
     import { isEmpty, prepend, switcher } from 'rambdax'
 
-    import Keyword from '~/component/options/Keyword.svelte'
+    import Keyword from '~/component/Keyword.svelte'
     import { debug } from '~/lib/debug'
     import { iSort, iUniq } from '~/lib/utils'
     import { wordStorage } from '~/store/words'

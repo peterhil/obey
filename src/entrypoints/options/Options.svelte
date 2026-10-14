@@ -1,7 +1,7 @@
 <script>
     import { keys } from 'rambdax'
 
-    import KeywordList from '~/component/options/KeywordList.svelte'
+    import KeywordList from '~/component/KeywordList.svelte'
     import { options } from '~/lib/options'
     // import { paths } from '~/store/paths'
 
