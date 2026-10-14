@@ -13,7 +13,7 @@
 </script>
 
 <li>
-    {word}
+    {word.replaceAll(/\\b/g, '•')}
     <button
         class="remove"
         onclick={remove}
