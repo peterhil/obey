@@ -11,7 +11,7 @@
 
     let newWord = ''
 
-    function add (newWord, path) {
+    function add (newWord) {
         if ($words?.length >= 1) {
             const list = prepend(newWord, $words)
             const sorted = iSort(iUniq(list))
@@ -39,7 +39,7 @@
               .default(word)
 
         event.preventDefault()
-        add(boundedWord, path)
+        add(boundedWord)
         debug('onsubmit', {event, data, boundedWord})
         form.reset()
 

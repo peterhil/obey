@@ -3,7 +3,7 @@
 
     import { debug } from '~/lib/debug'
 
-    let { path, word, words } = $props()
+    let { word, words } = $props()
 
     function remove () {
         const filtered = filter((item) => item !== word, $words)
