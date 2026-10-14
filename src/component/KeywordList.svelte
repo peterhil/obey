@@ -1,27 +1,12 @@
 <script>
-    import { isEmpty, prepend, switcher } from 'rambdax'
+    import { isEmpty, switcher } from 'rambdax'
 
     import Keyword from '~/component/Keyword.svelte'
     import { debug } from '~/lib/debug'
-    import { iSort, iUniq } from '~/lib/utils'
     import { wordStorage } from '~/store/words'
 
     const { path, rules} = $props()
     const words = await wordStorage(path)
-
-    let newWord = ''
-
-    function add (newWord) {
-        if ($words?.length >= 1) {
-            const list = prepend(newWord, $words)
-            const sorted = iSort(iUniq(list))
-
-            $words = sorted
-        }
-        else {
-            $words = [newWord]
-        }
-    }
 
     function onsubmit (event) {
         const form = event.currentTarget
@@ -38,9 +23,10 @@
               .is('end', word + '\\b')
               .default(word)
 
-        event.preventDefault()
-        add(boundedWord)
+        words.add(boundedWord)
+
         debug('onsubmit', {event, data, boundedWord})
+        event.preventDefault()
         form.reset()
 
         return true

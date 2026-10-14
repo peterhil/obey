@@ -6,9 +6,7 @@
     let { word, words } = $props()
 
     function remove () {
-        const filtered = filter((item) => item !== word, $words)
-
-        $words = filtered
+        words.remove(word)
     }
 </script>
 
