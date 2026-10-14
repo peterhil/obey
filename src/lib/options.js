@@ -20,6 +20,7 @@ export const options = {
             'Java',
             'LLM',
             'LLMs',
+            'On-site',
             'Php',
             'Power platform',
             'Promoted',
