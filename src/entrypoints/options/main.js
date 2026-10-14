@@ -1,6 +1,7 @@
 /* global document */
 
 import '@picocss/pico/css/pico.fluid.classless.min.css'
+import '~/common.css'
 import './options.css'
 
 import { mount } from 'svelte'

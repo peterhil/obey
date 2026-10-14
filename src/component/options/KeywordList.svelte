@@ -32,15 +32,16 @@
 
         if (isEmpty(word)) return false
 
-        const newWord = switcher(boundary)
+        const boundedWord = switcher(boundary)
               .is('start', '\\b' + word)
               .is('both', '\\b' + word + '\\b')
               .is('end', word + '\\b')
               .default(word)
 
         event.preventDefault()
-        add(newWord, path)
-        debug('onsubmit', {event, data, word, newWord})
+        add(boundedWord, path)
+        debug('onsubmit', {event, data, boundedWord})
+        form.reset()
 
         return true
     }
@@ -49,7 +50,7 @@
 <article class="path">
     <h3>{path === '*' ? 'Everywhere' : path}</h3>
 
-    <ul>
+    <ul class="keywords">
         {#each $words as word (word)}
             <Keyword {word} {path} {words} />
         {/each}
@@ -59,7 +60,6 @@
         <form {onsubmit}>
             <div role="group">
                 <input
-                    bind:value={newWord}
                     minlength="1"
                     name="word"
                     placeholder="Keyword"
