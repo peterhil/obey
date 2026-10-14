@@ -1,6 +1,6 @@
 /* global MutationObserver, browser, defineContentScript */
 
-import '~/common.css'
+import '~/assets/common.css'
 import './style.css'
 
 import { debounce } from 'rambdax'
