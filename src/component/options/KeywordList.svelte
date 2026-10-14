@@ -29,13 +29,15 @@
     </ul>
 
     <footer>
-        <div role="group">
-            <input
-                bind:value={newWord}
-                placeholder="Keyword"
-                type="text"
-                />
-            <button onclick={() => add(newWord, path)}>Add</button>
-        </div>
+        <form>
+            <div role="group">
+                <input
+                    bind:value={newWord}
+                    placeholder="Keyword"
+                    type="text"
+                    />
+                <button onclick={() => add(newWord, path)}>Add</button>
+            </div>
+        </form>
     </footer>
 </article>
