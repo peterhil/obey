@@ -66,23 +66,19 @@
                     required
                     type="text"
                     />
-                <label>
-                    <input type="radio" name="boundary" value="start" />
-                    Start
-                </label>
-                <label>
-                    <input type="radio" name="boundary" value="both" checked />
-                    Word
-                </label>
-                <label>
-                    <input type="radio" name="boundary" value="end" />
-                    End
-                </label>
-                <label>
-                    <input type="radio" name="boundary" value="none" />
-                    None
-                </label>
-                <button>Add</button>
+                <select
+                    class="boundary"
+                    name="boundary"
+                    aria-label="Select word boundary"
+                    title="Word boundary"
+                    required
+                    >
+                    <option value="start">Start</option>
+                    <option value="both" selected>Word</option>
+                    <option value="end">End</option>
+                    <option value="none">Regex</option>false
+                </select>
+                <button class="add">Add</button>
             </div>
         </form>
     </footer>

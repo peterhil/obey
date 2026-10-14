@@ -52,3 +52,12 @@ ul.keywords {
         padding: 0.25rem 0.5rem;
     }
 }
+
+select.boundary {
+    flex: 1 0 clamp(112px, 25%, 200px);
+}
+
+button.add {
+    flex: 1 0 6%;
+    padding-inline: 3vw;
+}
