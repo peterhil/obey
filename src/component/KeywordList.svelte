@@ -5,7 +5,7 @@
     import { debug } from '~/lib/debug'
     import { wordStorage } from '~/store/words'
 
-    const { path, rules} = $props()
+    const { path } = $props()
     const words = await wordStorage(path)
 
     function onsubmit (event) {
