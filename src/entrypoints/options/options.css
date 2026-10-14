@@ -9,10 +9,19 @@ body {
 }
 
 .path {
+    position: relative;
     border: 1px solid var(--obey-color-action);
     border-radius: var(--pico-border-radius);
     margin-block: 0.75rem;
     padding: 1rem;
+
+    .delete {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        border: none;
+    }
 
     h3 {
         margin-block: 0.25rem 1.25rem;

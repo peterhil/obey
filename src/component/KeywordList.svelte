@@ -1,12 +1,19 @@
 <script>
-    import { isEmpty, switcher } from 'rambdax'
+    import { filter, isEmpty, switcher } from 'rambdax'
 
     import Keyword from '~/component/Keyword.svelte'
     import { debug } from '~/lib/debug'
+    import { paths } from '~/store/paths'
     import { wordStorage } from '~/store/words'
 
     const { path } = $props()
     const words = await wordStorage(path)
+
+    function onDelete () {
+        if (confirm('Are you sure?')) {
+            $paths = filter(item => item !== path, $paths)
+        }
+    }
 
     function onsubmit (event) {
         const form = event.currentTarget
@@ -34,6 +41,16 @@
 </script>
 
 <article class="path">
+    {#if path !== '*'}
+        <button
+            aria-label="Delete"
+            class="delete"
+            onclick={onDelete}
+            type="button"
+            >
+            &times;
+        </button>
+    {/if}
     <h3>{path === '*' ? 'Everywhere' : path}</h3>
 
     <ul class="keywords">
