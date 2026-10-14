@@ -1,10 +1,10 @@
 /* global document */
 
-// import escapeRegexp from 'escape-string-regexp'
-import { debounce, isEmpty, match } from 'rambdax'
+import { debounce, isEmpty } from 'rambdax'
 
 import { debug, isDev } from '~/lib/debug'
 import { findContainers } from '~/lib/dom'
+import { hasKeywords, searchKeywords } from '~/lib/regex'
 import { iUniq } from '~/lib/utils'
 import { loadRules } from '~/lib/options'
 import { markContainers } from '~/lib/marking'
@@ -47,23 +47,6 @@ function addDetails (element, reason, keywords) {
             element.replaceChildren(details)
         }
     }
-}
-
-function regexpPattern (keywords) {
-    const keys = keywords.map(RegExp.escape)
-    const pattern = '\\b(' + keys.join('|') + ')\\b'
-
-    return pattern
-}
-
-function hasKeywords (keywords, text) {
-    const re = new RegExp(regexpPattern(keywords), 'giu')
-    return re.test(text)
-}
-
-function searchKeywords (keywords, text) {
-    const re = new RegExp(regexpPattern(keywords), 'giu')
-    return match(re, text)
 }
 
 function getReason (matches) {
