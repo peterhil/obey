@@ -1,17 +1,3 @@
-:root {
-    @media (prefers-color-scheme: light) {
-        --obey-color-text: #1a1a1a;
-        --obey-color-stripe: #f0f0f0;
-        --obey-color-bg: #ffffff;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        --obey-color-text: #fafafa;
-        --obey-color-stripe: #00080f;
-        --obey-color-bg: #1a2a3a;
-    }
-}
-
 body.obey-debug {
     [data-obey] {
         outline-offset: -3px;
