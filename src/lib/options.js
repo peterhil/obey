@@ -35,7 +35,7 @@ export async function loadRules (url) {
         (_, path) => {
             return (path === '*' || !!url.match(path))
         },
-        options.rules)
+        defaultRules)
     const rules = flatten(values(matched))
 
     // debug('Matched rules:', { matched, rules })
