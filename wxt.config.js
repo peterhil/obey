@@ -6,13 +6,20 @@ export default defineConfig({
     alias: {
         $lib: './src/lib',
     },
+    autoIcons: {
+        developmentIndicator: 'grayscale',
+        sizes: [64, 48, 32, 16],
+    },
     extensionApi: 'webextension-polyfill',
     imports: {
         eslintrc: {
             enabled: 9,
         },
     },
-    modules: ['@wxt-dev/module-svelte'],
+    modules: [
+        '@wxt-dev/auto-icons',
+        '@wxt-dev/module-svelte',
+    ],
     manifest: {
         name: 'Obey - hide content!',
         version: '0.2',
