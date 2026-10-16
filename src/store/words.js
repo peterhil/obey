@@ -3,12 +3,7 @@ import { writable } from 'svelte/store'
 
 import { debug } from '~/lib/debug'
 import { iSort, iUniq } from '~/lib/utils'
-
-async function syncSet (path, value) {
-    const obj = {[path]: value}
-    await browser.storage.sync.set(obj)
-    debug('wordStorage syncSet:', obj)
-}
+import { syncSet } from '~/store/sync'
 
 export async function wordStorage (path, defaultValue = []) {
     const saved = await browser.storage.sync.get(path)

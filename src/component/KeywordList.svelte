@@ -3,15 +3,16 @@
 
     import Keyword from '~/component/Keyword.svelte'
     import { debug } from '~/lib/debug'
-    import { paths } from '~/store/paths'
+    import { pathStorage } from '~/store/paths'
     import { wordStorage } from '~/store/words'
 
-    const { path } = $props()
+    const { path, paths } = $props()
+
     const words = await wordStorage(path)
 
     function onDelete () {
         if (confirm('Are you sure?')) {
-            $paths = filter(item => item !== path, $paths)
+            paths.remove(path)
         }
     }
 
