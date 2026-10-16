@@ -1,20 +1,29 @@
-/* global MutationObserver, browser, defineContentScript */
+/* global MutationObserver, document, window */
 
 import '~/assets/common.css'
 import './style.css'
 
-import { debounce } from 'rambdax'
+import { debounce, filter, flatten, includes, values } from 'rambdax'
 
 import { debug, isDev } from '~/lib/debug'
 import { findContainers } from '~/lib/dom'
-import { loadRules } from '~/lib/options'
 import { hideElements, markContainers } from '~/lib/marking'
+
+async function updateKeywords (host) {
+    const keys = await browser.storage.sync.getKeys()
+    const matching = filter((key) => key === '*' || includes(key, host), keys)
+    const stored = await browser.storage.sync.get(matching)
+    const keywords = flatten(values(stored))
+    debug('updateKeywords:', { host, matching, keywords })
+
+    return keywords
+}
 
 async function obey () {
     const minChildCount = 5
     const minWidth = 50
     const containers = await findContainers(minChildCount, minWidth)
-    const keywords = await loadRules(document.location.host)
+    const keywords = await updateKeywords(document.location.host)
 
     debug('Checking content:', { containers, keywords })
     if (isDev) document.body.classList.add('obey-debug')
@@ -38,7 +47,9 @@ const onMutation = (mutations) => {
 }
 
 const onNavigation = (event) => {
-    debug('Navigation:', {event})
+    const host = event.newUrl.host
+
+    debug('Navigation:', {host, event})
     debouncedObey()
 }
 

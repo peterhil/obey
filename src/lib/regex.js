@@ -2,8 +2,7 @@
 import { match } from 'rambdax'
 
 function regexpPattern (keywords) {
-    const keys = keywords.map(RegExp.escape)
-    const pattern = '\\b(' + keys.join('|') + ')\\b'
+    const pattern = '(' + keywords.join('|') + ')'
 
     return pattern
 }

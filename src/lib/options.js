@@ -1,6 +1,5 @@
 import { filter, flatten, values } from 'rambdax'
 
-// TODO Implement options UI
 export const defaultRules = {
     '*': [
         'AI',
