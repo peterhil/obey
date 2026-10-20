@@ -7,7 +7,7 @@ import { syncSet } from '~/store/sync'
 export async function pathStorage () {
     const allSites = '*'
     const keys = await browser.storage.sync.getKeys()
-    const paths = filter(
+    let paths = filter(
         (key) => !key.startsWith('obey:'),
         keys.toSorted()
     )
