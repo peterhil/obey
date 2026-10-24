@@ -5,13 +5,14 @@
     import { debug } from '~/lib/debug'
     import { wordStorage } from '~/store/words'
 
-    const { path, paths } = $props()
+    const { path } = $props()
 
     const words = await wordStorage(path)
 
     function onDelete () {
         if (confirm('Are you sure?')) {
-            paths.remove(path)
+            debug('Would delete:', path)
+            // paths.remove(path)
         }
     }
 

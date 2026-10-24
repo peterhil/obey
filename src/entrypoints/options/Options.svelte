@@ -34,6 +34,6 @@
     </form>
 
     {#each $paths as path (path)}
-        <KeywordList {path} {paths}></KeywordList>
+        <KeywordList {path}></KeywordList>
     {/each}
 </div>
