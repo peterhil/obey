@@ -3,7 +3,6 @@
 
     import Keyword from '~/component/Keyword.svelte'
     import { debug } from '~/lib/debug'
-    import { pathStorage } from '~/store/paths'
     import { wordStorage } from '~/store/words'
 
     const { path, paths } = $props()

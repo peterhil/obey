@@ -6,7 +6,6 @@
     import { debug } from '~/lib/debug'
     // import { defaultRules } from '~/lib/options'
     import { pathStorage } from '~/store/paths'
-    import { wordStorage } from '~/store/words'
 
     const paths = await pathStorage()
 
