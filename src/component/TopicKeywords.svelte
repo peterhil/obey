@@ -5,6 +5,7 @@
     import { topics } from '~/store/topicStore'
 
     const { id, topic } = $props()
+    let input
 
     function addWord (word, boundary = 'both') {
         if (isEmpty(word)) return false
@@ -37,6 +38,7 @@
         addWord(word, boundary)
         event.preventDefault()
         form.reset()
+        input.focus()
 
         return true
     }
@@ -65,6 +67,7 @@
         <form {onsubmit}>
             <div role="group">
                 <input
+                    bind:this={input}
                     minlength="1"
                     name="word"
                     placeholder="Keyword"
