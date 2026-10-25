@@ -4,7 +4,7 @@
 
     const { topics } = $props()
 
-    async function onAddTopic (event) {
+    async function onsubmit (event) {
         const form = event.currentTarget
         const data = new FormData(form)
         const topic = data.get('topic')
@@ -18,7 +18,7 @@
 </script>
 
 <section class="topics">
-    <form onsubmit={onAddTopic}>
+    <form {onsubmit}>
         <label>
             Add a topic:
             <input name="topic" type="text">

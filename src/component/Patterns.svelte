@@ -4,7 +4,7 @@
 
     const { paths } = $props()
 
-    async function onAddPath (event) {
+    async function onsubmit (event) {
         const form = event.currentTarget
         const data = new FormData(form)
         const path = data.get('path')
@@ -18,7 +18,7 @@
 </script>
 
 <section class="patterns">
-    <form onsubmit={onAddPath}>
+    <form {onsubmit}>
         <label>
             Add domain or path:
             <input name="path" type="text">
