@@ -15,6 +15,12 @@
         form.reset()
         debug('Add pattern:', {pattern})
     }
+
+    function onremove (domain) {
+        if (confirm('Are you sure?')) {
+            patterns.remove(domain)
+        }
+    }
 </script>
 
 <section class="domains">
@@ -25,7 +31,7 @@
         </label>
     </form>
 
-    {#each $patterns as pattern (pattern)}
-        <Domain {pattern}></Domain>
+    {#each $patterns as domain (domain)}
+        <Domain {domain} onremove={() => onremove(domain)}></Domain>
     {/each}
 </section>
