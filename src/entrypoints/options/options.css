@@ -8,7 +8,7 @@ body {
     font-family: sans-serif;
 }
 
-.path,
+.pattern,
 .topic {
     position: relative;
     border: 1px solid var(--obey-color-action);

@@ -2,30 +2,30 @@
     import KeywordList from '~/component/KeywordList.svelte'
     import { debug } from '~/lib/debug'
 
-    const { paths } = $props()
+    const { patterns } = $props()
 
     async function onsubmit (event) {
         const form = event.currentTarget
         const data = new FormData(form)
-        const path = data.get('path')
+        const pattern = data.get('pattern')
 
         event.preventDefault()
 
-        paths.add(path)
+        patterns.add(pattern)
         form.reset()
-        debug('Add path:', {path})
+        debug('Add pattern:', {pattern})
     }
 </script>
 
 <section class="patterns">
     <form {onsubmit}>
         <label>
-            Add domain or path:
-            <input name="path" type="text">
+            Add domain or pattern:
+            <input name="pattern" type="text">
         </label>
     </form>
 
-    {#each $paths as path (path)}
-        <KeywordList {path}></KeywordList>
+    {#each $patterns as pattern (pattern)}
+        <KeywordList {pattern}></KeywordList>
     {/each}
 </section>

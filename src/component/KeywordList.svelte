@@ -5,14 +5,14 @@
     import { debug } from '~/lib/debug'
     import { wordStorage } from '~/store/words'
 
-    const { path } = $props()
+    const { pattern } = $props()
 
-    const words = await wordStorage(path)
+    const words = await wordStorage(pattern)
 
     function onDelete () {
         if (confirm('Are you sure?')) {
-            debug('Would delete:', path)
-            // paths.remove(path)
+            debug('Would delete:', pattern)
+            // patterns.remove(pattern)
         }
     }
 
@@ -41,8 +41,8 @@
     }
 </script>
 
-<article class="path">
-    {#if path !== '*'}
+<article class="pattern">
+    {#if pattern !== '*'}
         <button
             aria-label="Delete"
             class="delete"
@@ -52,11 +52,11 @@
             &times;
         </button>
     {/if}
-    <h3>{path === '*' ? 'Everywhere' : path}</h3>
+    <h3>{pattern === '*' ? 'Everywhere' : pattern}</h3>
 
     <ul class="keywords">
         {#each $words as word (word)}
-            <Keyword {word} {path} {words} />
+            <Keyword {word} {words} />
         {/each}
     </ul>
 

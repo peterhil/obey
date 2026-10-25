@@ -4,35 +4,35 @@ import { writable } from 'svelte/store'
 import { debug } from '~/lib/debug'
 import { syncSet } from '~/store/sync'
 
-export async function pathStorage () {
+async function createPatterns () {
     const allSites = '*'
     const keys = await browser.storage.sync.getKeys()
-    let paths = filter(
-        (key) => !key.startsWith('obey:'),
+    let patterns = filter(
+        (key) => !key.startsWith('obey:') && !key.startsWith('kw:'),
         keys.toSorted()
     )
 
-    if (isEmpty(paths)) {
+    if (isEmpty(patterns)) {
         await syncSet(allSites, [])
-        paths = [allSites]
+        patterns = [allSites]
     }
-    const { subscribe, set, update } = writable(paths)
-    debug('pathStorage get:', paths)
+    const { subscribe, set, update } = writable(patterns)
+    debug('patternStorage get:', patterns)
 
     return {
         subscribe,
-        add: (path) => update(
-            (paths) => {
-                const list = prepend(path, paths || [allSites])
+        add: (pattern) => update(
+            (patterns) => {
+                const list = prepend(pattern, patterns || [allSites])
                 const value = list.toSorted()
 
                 return value
             }
         ),
-        remove: (path) => update(
-            (paths) => {
-                const value = filter(item => item !== path, paths)
-                browser.storage.sync.remove(path)
+        remove: (pattern) => update(
+            (patterns) => {
+                const value = filter(item => item !== pattern, patterns)
+                browser.storage.sync.remove(pattern)
 
                 return value
             }
@@ -41,3 +41,5 @@ export async function pathStorage () {
         update,
     }
 }
+
+export const patterns = await createPatterns()

@@ -2,10 +2,8 @@
     import Patterns from '~/component/Patterns.svelte'
     import Topics from '~/component/Topics.svelte'
 
-    import { pathStorage } from '~/store/paths'
+    import { patterns } from '~/store/patternStore'
     import { topics } from '~/store/topicStore'
-
-    const paths = await pathStorage()
 </script>
 
 <div>
@@ -16,5 +14,5 @@
 
     <h2>URL patterns</h2>
 
-    <Patterns {paths}></Patterns>
+    <Patterns {patterns}></Patterns>
 </div>
