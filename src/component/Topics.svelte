@@ -25,7 +25,7 @@
         </label>
     </form>
 
-    {#each $topics as topic (topic.id)}
-        <TopicKeywords {topic}></TopicKeywords>
+    {#each [...$topics.entries()] as [id, topic] (id)}
+        <TopicKeywords {id} {topic}></TopicKeywords>
     {/each}
 </section>

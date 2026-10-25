@@ -1,28 +1,12 @@
 <script>
-    import { filter, isEmpty, switcher } from 'rambdax'
+    import { isEmpty, switcher } from 'rambdax'
 
     import Keyword from '~/component/Keyword.svelte'
-    import { debug } from '~/lib/debug'
-    import { wordStorage } from '~/store/words'
+    import { topics } from '~/store/topicStore'
 
-    const { topic } = $props()
+    const { id, topic } = $props()
 
-    const words = await wordStorage(topic)
-
-    function onDelete () {
-        if (confirm('Are you sure?')) {
-            debug('Would delete:', topic)
-            // topics.remove(topic)
-        }
-    }
-
-    function onsubmit (event) {
-        const form = event.currentTarget
-        const data = new FormData(form)
-
-        const word = data.get('word')
-        const boundary = data.get('boundary')
-
+    function addWord (word, boundary = 'both') {
         if (isEmpty(word)) return false
 
         const boundedWord = switcher(boundary)
@@ -31,11 +15,26 @@
               .is('end', word + '\\b')
               .default(word)
 
-        
-        topic.hide.append(boundedWord)
-        // words.add(boundedWord)
+        topics.addWord(id, boundedWord)
+    }
 
-        debug('onsubmit', {event, data, boundedWord})
+    function removeWord (word) {
+        topics.removeWord(id, word)
+    }
+
+    function ondelete () {
+        if (confirm('Are you sure?')) {
+            topics.remove(id)
+        }
+    }
+
+    function onsubmit (event) {
+        const form = event.currentTarget
+        const data = new FormData(form)
+        const word = data.get('word')
+        const boundary = data.get('boundary')
+
+        addWord(word, boundary)
         event.preventDefault()
         form.reset()
 
@@ -48,7 +47,7 @@
         <button
             aria-label="Delete"
             class="delete"
-            onclick={onDelete}
+            onclick={ondelete}
             type="button"
             >
             &times;
@@ -57,8 +56,8 @@
     <h3>{topic.name === '*' ? 'Everywhere' : topic.name}</h3>
 
     <ul class="keywords">
-        {#each $words as word (word)}
-            <Keyword {word} path={topic} {words} />
+        {#each topic.hide as word (word)}
+            <Keyword {word} onremove={() => removeWord(word)} />
         {/each}
     </ul>
 

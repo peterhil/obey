@@ -1,46 +1,68 @@
 import { nanoid } from 'nanoid'
-import { append, filter, isEmpty, sortByProps } from 'rambdax'
+import { append, filter, isEmpty, sortObject, startsWith, toPairs } from 'rambdax'
 import { writable } from 'svelte/store'
 
 import { debug } from '~/lib/debug'
-// import { syncSet } from '~/store/sync'
+import { iSort, iUniq } from '~/lib/utils'
+import { syncSet } from '~/store/sync'
+
+export const topicSorter = (x, y, a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
 
 async function createTopics () {
-    // const keys = await browser.storage.sync.getKeys()
-    // let topics = filter(
-    //     (key) => key.startsWith('kw:'),
-    //     keys
-    // )
-    let saved = []  // await browser.storage.sync.get(topics)
-
-    const { subscribe, set, update } = writable(saved)
-    debug('topicStorage get:', saved)
+    const allKeys = await browser.storage.sync.getKeys()
+    const keys = filter(startsWith('kw:'), allKeys)
+    const saved = await browser.storage.sync.get(keys)
+    const sorted = sortObject(topicSorter, saved)
+    const topics = new Map(toPairs(sorted))
+    const { subscribe, set, update } = writable(topics)
+    debug('topicStorage get:', {sorted, topics})
 
     return {
         subscribe,
         add: (subject) => update(
-            (previous) => {
+            (topics) => {
                 const id = 'kw:' + nanoid()
                 const topic = {
-                    id,
                     name: subject,
                     hide: [],
                 }
-                const list = append(topic, previous)
-                const topics = sortByProps(['name'], list)
-                browser.storage.sync.set({[id]: topic})
+
+                syncSet(id, topic)
+                topics.set(id, topic)
 
                 return topics
             }
         ),
-        // remove: (topic) => update(
-        //     (previous) => {
-        //         const value = filter(item => item.id !== topic.id, previous)
-        //         browser.storage.sync.remove(topic.id)
+        remove: (id) => update(
+            (topics) => {
+                topics.delete(id)
+                browser.storage.sync.remove(id)
 
-        //         return value
-        //     }
-        // ),
+                return topics
+            }
+        ),
+        addWord: (id, word) => update(
+            (topics) => {
+                const topic = topics.get(id)
+
+                topic.hide = iSort(iUniq([word, ...(topic.hide || [])]))
+                syncSet(id, topic)
+                topics.set(id, topic)
+
+                return topics
+            }
+        ),
+        removeWord: (id, word) => update(
+            (topics) => {
+                const topic = topics.get(id)
+
+                topic.hide = filter(item => item !== word, topic.hide)
+                syncSet(id, topic)
+                topics.set(id, topic)
+
+                return topics
+            }
+        ),
         set,
         update,
     }
