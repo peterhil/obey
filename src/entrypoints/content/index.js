@@ -3,7 +3,7 @@
 import '~/assets/common.css'
 import './style.css'
 
-import { debounce, filter, flatten, includes, values } from 'rambdax'
+import { debounce, filter, flatten, includes, isEmpty, values } from 'rambdax'
 
 import { debug, isDev } from '~/lib/debug'
 import { findContainers } from '~/lib/dom'
@@ -29,6 +29,9 @@ async function obey () {
     if (isDev) document.body.classList.add('obey-debug')
 
     await markContainers(containers)
+
+    if (isEmpty(keywords)) return
+
     await hideElements(keywords)
 }
 
