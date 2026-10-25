@@ -1,5 +1,5 @@
 <script>
-    import Pattern from '~/component/Pattern.svelte'
+    import Domain from '~/component/Domain.svelte'
     import { debug } from '~/lib/debug'
 
     const { patterns } = $props()
@@ -17,7 +17,7 @@
     }
 </script>
 
-<section class="patterns">
+<section class="domains">
     <form {onsubmit}>
         <label>
             Add domain or pattern:
@@ -26,6 +26,6 @@
     </form>
 
     {#each $patterns as pattern (pattern)}
-        <Pattern {pattern}></Pattern>
+        <Domain {pattern}></Domain>
     {/each}
 </section>

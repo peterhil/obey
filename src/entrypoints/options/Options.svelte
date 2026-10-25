@@ -1,5 +1,5 @@
 <script>
-    import Patterns from '~/component/Patterns.svelte'
+    import Domains from '~/component/Domains.svelte'
     import Topics from '~/component/Topics.svelte'
 
     import { patterns } from '~/store/patternStore'
@@ -14,5 +14,5 @@
 
     <h2>URL patterns</h2>
 
-    <Patterns {patterns}></Patterns>
+    <Domains {patterns}></Domains>
 </div>
