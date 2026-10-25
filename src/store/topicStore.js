@@ -1,4 +1,4 @@
-import { filter, isEmpty, prepend } from 'rambdax'
+import { append, filter, isEmpty, sortByProps } from 'rambdax'
 import { writable } from 'svelte/store'
 
 import { debug } from '~/lib/debug'
@@ -8,7 +8,7 @@ export async function topicStore () {
     // const keys = await browser.storage.sync.getKeys()
     // let topics = filter(
     //     (key) => key.startsWith('kw:'),
-    //     keys // TODO keys.toSorted()
+    //     keys
     // )
     let saved = []  // await browser.storage.sync.get(topics)
 
@@ -17,19 +17,25 @@ export async function topicStore () {
 
     return {
         subscribe,
-        add: (topic) => update(
-            (topics) => {
-                const list = prepend(topic, topics)
-                const value = list.toSorted()
-                // browser.storage.sync.set(topic)
+        add: (subject) => update(
+            (previous) => {
+                const id = 'kw:' + self.crypto.randomUUID()
+                const topic = {
+                    id,
+                    name: subject,
+                    hide: [],
+                }
+                const list = append(topic, previous)
+                const topics = sortByProps(['name'], list)
+                browser.storage.sync.set({[id]: topic})
 
-                return value
+                return topics
             }
         ),
         // remove: (topic) => update(
-        //     (topics) => {
-        //         const value = filter(item => item !== topic, topics)
-        //         browser.storage.sync.remove(topic)
+        //     (previous) => {
+        //         const value = filter(item => item.id !== topic.id, previous)
+        //         browser.storage.sync.remove(topic.id)
 
         //         return value
         //     }

@@ -1,5 +1,5 @@
 <script>
-    import KeywordList from '~/component/KeywordList.svelte'
+    import TopicKeywords from '~/component/TopicKeywords.svelte'
     import { debug } from '~/lib/debug'
 
     const { topics } = $props()
@@ -25,7 +25,7 @@
         </label>
     </form>
 
-    {#each $topics as topic (topic)}
-        <KeywordList path={topic}></KeywordList>
+    {#each $topics as topic (topic.id)}
+        <TopicKeywords {topic}></TopicKeywords>
     {/each}
 </section>

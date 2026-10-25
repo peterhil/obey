@@ -8,7 +8,8 @@ body {
     font-family: sans-serif;
 }
 
-.path {
+.path,
+.topic {
     position: relative;
     border: 1px solid var(--obey-color-action);
     border-radius: var(--pico-border-radius);
