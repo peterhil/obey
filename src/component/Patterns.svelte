@@ -1,5 +1,5 @@
 <script>
-    import KeywordList from '~/component/KeywordList.svelte'
+    import Pattern from '~/component/Pattern.svelte'
     import { debug } from '~/lib/debug'
 
     const { patterns } = $props()
@@ -26,6 +26,6 @@
     </form>
 
     {#each $patterns as pattern (pattern)}
-        <KeywordList {pattern}></KeywordList>
+        <Pattern {pattern}></Pattern>
     {/each}
 </section>
