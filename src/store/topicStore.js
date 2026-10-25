@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid'
 import { append, filter, isEmpty, sortByProps } from 'rambdax'
 import { writable } from 'svelte/store'
 
@@ -19,7 +20,7 @@ export async function topicStore () {
         subscribe,
         add: (subject) => update(
             (previous) => {
-                const id = 'kw:' + self.crypto.randomUUID()
+                const id = 'kw:' + nanoid()
                 const topic = {
                     id,
                     name: subject,
