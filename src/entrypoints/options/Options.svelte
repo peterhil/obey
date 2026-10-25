@@ -3,6 +3,8 @@
     import { onMount } from 'svelte'
 
     import KeywordList from '~/component/KeywordList.svelte'
+    import Topics from '~/component/Topics.svelte'
+
     import { debug } from '~/lib/debug'
     // import { defaultRules } from '~/lib/options'
     import { pathStorage } from '~/store/paths'
@@ -10,17 +12,6 @@
 
     const paths = await pathStorage()
     const topics = await topicStore()
-
-    async function onAddTopic (event) {
-        const form = event.currentTarget
-        const data = new FormData(form)
-        const topic = data.get('topic')
-
-        event.preventDefault()
-        topics.add(topic)
-        form.reset()
-        debug('Add topic:', {topic})
-    }
 
     async function onAddPath (event) {
         const form = event.currentTarget
@@ -39,16 +30,7 @@
     <h1>Obey options</h1>
     <h2>Keywords to hide</h2>
 
-    <form onsubmit={onAddTopic}>
-        <label>
-            Add a topic:
-            <input name="topic" type="text">
-        </label>
-    </form>
-
-    {#each $topics as topic (topic)}
-        <KeywordList path={topic}></KeywordList>
-    {/each}
+    <Topics {topics}></Topics>
 
     <h2>URL patterns</h2>
 
