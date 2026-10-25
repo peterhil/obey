@@ -17,6 +17,9 @@ importers:
       nanoid:
         specifier: ^6.0.2
         version: 6.0.2
+      punycode:
+        specifier: ^2.3.1
+        version: 2.3.1
       rambdax:
         specifier: ^11.3.1
         version: 11.3.1
