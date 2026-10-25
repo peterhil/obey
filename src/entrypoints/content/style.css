@@ -26,6 +26,7 @@ body.obey-debug {
     margin-block: 0;
     padding: 0;
     font-size: initial;
+    grid-template-columns: 100%;
 
     details.obey,
     details.obey-prepend {
