@@ -83,6 +83,13 @@ function markElement (node) {
 function markContainer (node) {
     const onlySimilar = false
     const mostCommon = onlySimilar ? findSimilarElements(node) : [...node.children]
+    const parentContainers = parents(node, '[data-obey="container"]')
+
+    if (!isEmpty(parentContainers)) {
+        // debug('Found a wrapper with parent container:', {node, parentContainers})
+        node.dataset.obey = 'wrapper'
+        return
+    }
 
     node.dataset.obey = 'container'
     node.dataset.obeyChildElementCount = node.childElementCount
