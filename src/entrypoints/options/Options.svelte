@@ -1,5 +1,4 @@
 <script>
-    import KeywordList from '~/component/KeywordList.svelte'
     import Patterns from '~/component/Patterns.svelte'
     import Topics from '~/component/Topics.svelte'
 
