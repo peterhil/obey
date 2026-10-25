@@ -4,10 +4,9 @@
     import Topics from '~/component/Topics.svelte'
 
     import { pathStorage } from '~/store/paths'
-    import { topicStore } from '~/store/topicStore'
+    import { topics } from '~/store/topicStore'
 
     const paths = await pathStorage()
-    const topics = await topicStore()
 </script>
 
 <div>

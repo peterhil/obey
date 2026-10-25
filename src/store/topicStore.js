@@ -5,7 +5,7 @@ import { writable } from 'svelte/store'
 import { debug } from '~/lib/debug'
 // import { syncSet } from '~/store/sync'
 
-export async function topicStore () {
+async function createTopics () {
     // const keys = await browser.storage.sync.getKeys()
     // let topics = filter(
     //     (key) => key.startsWith('kw:'),
@@ -45,3 +45,5 @@ export async function topicStore () {
         update,
     }
 }
+
+export const topics = await createTopics()
