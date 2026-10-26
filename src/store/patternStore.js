@@ -34,7 +34,7 @@ async function createPatterns () {
                 syncSet(id, pattern)
                 patterns.set(id, pattern)
 
-                return pattern
+                return patterns
             }
         ),
         remove: (id) => update(
