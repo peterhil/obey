@@ -1,38 +1,37 @@
 <script>
     import { debug } from '~/lib/debug'
     import { cleanKeywords } from '~/lib/keywords'
-    import { topLevelDomain } from '~/lib/utils'
 
+    // import { patterns } from '~/store/patternStore'
     import { topics } from '~/store/topicStore'
 
-    const { patterns } = $props()
+    let { patterns } = $props()
+
+    let form
+    let keywords = []
+    let pattern = ''
 
     async function onsubmit (event) {
-        const form = event.currentTarget
-        const data = new FormData(form)
-
-        const keywords = data.getAll('keywords')
-        const pattern = data.get('pattern')
-
         const urlPattern = {hostname: pattern}
-        const domain = topLevelDomain(pattern)
-
-        patterns.add(urlPattern, keywords)
 
         event.preventDefault()
+        patterns.add(urlPattern, keywords)
+        debug('Add pattern:', urlPattern)
         form.reset()
-        debug('Add pattern:', {domain, urlPattern})
+
+        return true
     }
 </script>
 
-<form {onsubmit}>
+<form bind:this={form} {onsubmit}>
     <label>
         Add domain or pattern:
-        <input name="pattern" type="text">
+        <input bind:value={pattern} name="pattern" type="text">
     </label>
     <label>
         Keyword topics:
         <select
+            bind:value={keywords}
             name="keywords"
             multiple
             size="3"
