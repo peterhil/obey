@@ -1,13 +1,16 @@
 <script>
     import Keyword from '~/component/Keyword.svelte'
 
-    const { id, topic, topics } = $props()
-    const keywords = $derived(topic.hide)
+    import { topics } from '~/store/topicStore'
+
+    const { id } = $props()
+
+    const topic = $derived(topics.get(id))
 </script>
 
 <details class="keywords">
     <summary>{topic.name}</summary>
-    {#each keywords as word (word)}
+    {#each $topics.get(id).hide as word (word)}
         <Keyword {word} onremove={() => topics.removeWord(id, word)} />
     {/each}
 </details>

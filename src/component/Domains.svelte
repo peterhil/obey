@@ -2,9 +2,7 @@
     import Domain from '~/component/Domain.svelte'
     import PatternForm from '~/component/PatternForm.svelte'
 
-    import { topics } from '~/store/topicStore'
-
-    const { patterns } = $props()
+    let { patterns } = $props()
 
     function onremove (id) {
         if (confirm('Are you sure?')) {
@@ -18,11 +16,12 @@
 
     {#each $patterns as [id, pattern] (id)}
         <Domain
-            domain={pattern.up.hostname}
+            domain={pattern.up.hostname}  // TODO Use whole pattern
             onremove={() => onremove(id)}
             {pattern}
-            {topics}
             >
         </Domain>
+    {:else}
+        No patterns!
     {/each}
 </section>
