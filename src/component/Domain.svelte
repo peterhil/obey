@@ -1,5 +1,7 @@
 <script>
-    const { domain, onremove } = $props()
+    import ExpandTopic from '~/component/ExpandTopic.svelte'
+
+    const { domain, pattern, topics, onremove } = $props()
 </script>
 
 <article class="domain">
@@ -16,5 +18,10 @@
     <h3>{domain === '*' ? 'Everywhere' : domain}</h3>
 
     <ul class="rules">
+        {#each pattern.kw as kwid}
+            <li>
+                <ExpandTopic id={kwid} topic={topics.get(kwid)} {topics} />
+            </li>
+        {/each}
     </ul>
 </article>

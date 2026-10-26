@@ -45,7 +45,7 @@
 </script>
 
 <article class="topic">
-    {#if topic !== '*'}
+    {#if topic.name !== '*'}
         <button
             aria-label="Delete"
             class="delete"

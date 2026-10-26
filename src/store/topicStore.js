@@ -41,6 +41,9 @@ async function createTopics () {
                 return topics
             }
         ),
+        get: (id) => {
+            return topics.get(id)
+        },
         addWord: (id, word) => update(
             (topics) => {
                 const topic = topics.get(id)

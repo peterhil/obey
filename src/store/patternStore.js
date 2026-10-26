@@ -1,40 +1,48 @@
-import { filter, isEmpty, prepend } from 'rambdax'
+import { nanoid } from 'nanoid'
+import { filter, isEmpty, prepend, sortObject, startsWith, toPairs } from 'rambdax'
 import { writable } from 'svelte/store'
 
 import { debug } from '~/lib/debug'
 import { syncSet } from '~/store/sync'
 
 async function createPatterns () {
-    const allSites = '*'
-    const keys = await browser.storage.sync.getKeys()
-    let patterns = filter(
-        (key) => !key.startsWith('obey:') && !key.startsWith('kw:'),
-        keys.toSorted()
-    )
-
-    if (isEmpty(patterns)) {
-        await syncSet(allSites, [])
-        patterns = [allSites]
+    const allSites = {
+        "id": "up:*",
+        "protocol": "*",
+        "hostname": "*",
+        "kw": [],
     }
+    const allKeys = await browser.storage.sync.getKeys()
+    const keys = filter(startsWith('up:'), allKeys)
+    const saved = await browser.storage.sync.get(keys)
+    // const sorted = sortObject(topicSorter, saved)
+    const patterns = new Map(toPairs(saved))
+
     const { subscribe, set, update } = writable(patterns)
     debug('patternStorage get:', patterns)
 
     return {
         subscribe,
-        add: (pattern) => update(
+        add: (urlPattern, kw = []) => update(
             (patterns) => {
-                const list = prepend(pattern, patterns || [allSites])
-                const value = list.toSorted()
+                const id = 'up:' + nanoid()
+                const pattern = {
+                    up: urlPattern,  // TODO Clean default fields
+                    kw,
+                }
 
-                return value
+                syncSet(id, pattern)
+                patterns.set(id, pattern)
+
+                return pattern
             }
         ),
-        remove: (pattern) => update(
+        remove: (id) => update(
             (patterns) => {
-                const value = filter(item => item !== pattern, patterns)
-                browser.storage.sync.remove(pattern)
+                patterns.delete(id)
+                browser.storage.sync.remove(id)
 
-                return value
+                return patterns
             }
         ),
         set,
