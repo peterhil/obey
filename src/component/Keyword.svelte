@@ -3,18 +3,14 @@
 
     import { debug } from '~/lib/debug'
 
-    let { word, words } = $props()
-
-    function remove () {
-        words.remove(word)
-    }
+    let { word, onremove } = $props()
 </script>
 
 <li>
     {word.replaceAll(/\\b/g, '•')}
     <button
         class="remove"
-        onclick={remove}
+        onclick={onremove}
         type="button"
         >
         &times;

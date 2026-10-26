@@ -1,40 +1,18 @@
 <script>
-    import { prepend, sort } from 'rambdax'
-    import { onMount } from 'svelte'
+    import Domains from '~/component/Domains.svelte'
+    import Topics from '~/component/Topics.svelte'
 
-    import KeywordList from '~/component/KeywordList.svelte'
-    import { debug } from '~/lib/debug'
-    // import { defaultRules } from '~/lib/options'
-    import { pathStorage } from '~/store/paths'
-    import { wordStorage } from '~/store/words'
-
-    const paths = await pathStorage()
-
-    async function onsubmit (event) {
-        const form = event.currentTarget
-        const data = new FormData(form)
-        const path = data.get('path')
-
-        event.preventDefault()
-
-        // Create new storage key
-        paths.add(path)
-        debug('Add path:', {path})
-    }
+    import { patterns } from '~/store/patternStore'
+    import { topics } from '~/store/topicStore'
 </script>
 
 <div>
     <h1>Obey options</h1>
     <h2>Keywords to hide</h2>
 
-    <form {onsubmit}>
-        <label>
-            Add domain or path:
-            <input name="path" type="text">
-        </label>
-    </form>
+    <Topics {topics}></Topics>
 
-    {#each $paths as path (path)}
-        <KeywordList {path} {paths}></KeywordList>
-    {/each}
+    <h2>URL patterns</h2>
+
+    <Domains {patterns}></Domains>
 </div>

@@ -1,28 +1,13 @@
 <script>
-    import { filter, isEmpty, switcher } from 'rambdax'
+    import { isEmpty, switcher } from 'rambdax'
 
     import Keyword from '~/component/Keyword.svelte'
-    import { debug } from '~/lib/debug'
-    import { pathStorage } from '~/store/paths'
-    import { wordStorage } from '~/store/words'
+    import { topics } from '~/store/topicStore'
 
-    const { path, paths } = $props()
+    const { id, topic } = $props()
+    let input
 
-    const words = await wordStorage(path)
-
-    function onDelete () {
-        if (confirm('Are you sure?')) {
-            paths.remove(path)
-        }
-    }
-
-    function onsubmit (event) {
-        const form = event.currentTarget
-        const data = new FormData(form)
-
-        const word = data.get('word')
-        const boundary = data.get('boundary')
-
+    function addWord (word, boundary = 'both') {
         if (isEmpty(word)) return false
 
         const boundedWord = switcher(boundary)
@@ -31,32 +16,50 @@
               .is('end', word + '\\b')
               .default(word)
 
-        words.add(boundedWord)
+        topics.addWord(id, boundedWord)
+    }
 
-        debug('onsubmit', {event, data, boundedWord})
+    function removeWord (word) {
+        topics.removeWord(id, word)
+    }
+
+    function ondelete () {
+        if (confirm('Are you sure?')) {
+            topics.remove(id)
+        }
+    }
+
+    function onsubmit (event) {
+        const form = event.currentTarget
+        const data = new FormData(form)
+        const word = data.get('word')
+        const boundary = data.get('boundary')
+
+        addWord(word, boundary)
         event.preventDefault()
         form.reset()
+        input.focus()
 
         return true
     }
 </script>
 
-<article class="path">
-    {#if path !== '*'}
+<article class="topic">
+    {#if topic.name !== '*'}
         <button
             aria-label="Delete"
             class="delete"
-            onclick={onDelete}
+            onclick={ondelete}
             type="button"
             >
             &times;
         </button>
     {/if}
-    <h3>{path === '*' ? 'Everywhere' : path}</h3>
+    <h3>{topic.name === '*' ? 'Everywhere' : topic.name}</h3>
 
     <ul class="keywords">
-        {#each $words as word (word)}
-            <Keyword {word} {path} {words} />
+        {#each topic.hide as word (word)}
+            <Keyword {word} onremove={() => removeWord(word)} />
         {/each}
     </ul>
 
@@ -64,6 +67,7 @@
         <form {onsubmit}>
             <div role="group">
                 <input
+                    bind:this={input}
                     minlength="1"
                     name="word"
                     placeholder="Keyword"
