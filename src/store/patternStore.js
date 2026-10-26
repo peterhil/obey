@@ -3,7 +3,7 @@ import { filter, isEmpty, prepend, sortObject, startsWith, toPairs } from 'rambd
 import { writable } from 'svelte/store'
 
 import { debug } from '~/lib/debug'
-import { syncSet } from '~/store/sync'
+import { syncGetPrefix, syncSet } from '~/store/sync'
 
 async function createPatterns () {
     const allSites = {
@@ -12,9 +12,7 @@ async function createPatterns () {
         "hostname": "*",
         "kw": [],
     }
-    const allKeys = await browser.storage.sync.getKeys()
-    const keys = filter(startsWith('up:'), allKeys)
-    const saved = await browser.storage.sync.get(keys)
+    const saved = await syncGetPrefix('up:')
     // const sorted = sortObject(topicSorter, saved)
     const patterns = new Map(toPairs(saved))
 
