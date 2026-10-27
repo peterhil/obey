@@ -54,7 +54,7 @@ const onRequest = (request) => {
 }
 
 const onMutation = (mutations) => {
-    debug('Mutations:', mutations)
+    // debug('Mutations:', mutations)
     debouncedObey()
 }
 
