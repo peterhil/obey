@@ -1,7 +1,7 @@
 <script>
     let {
-        pattern,
-        field = $bindable(),
+        pattern = $bindable(),
+        field,
         label,
         onblur,
         onfocus,

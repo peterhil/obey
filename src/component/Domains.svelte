@@ -16,9 +16,8 @@
 
     {#each $patterns as [id, pattern] (id)}
         <Domain
-            domain={pattern.up.hostname}  // TODO Use whole pattern
-            onremove={() => onremove(id)}
             {pattern}
+            onremove={() => onremove(id)}
             >
         </Domain>
     {:else}

@@ -4,6 +4,7 @@
 
     import UrlPattern from '~/component/UrlPattern.svelte'
 
+    import { pattern } from '~/store/pattern'
     // import { patterns } from '~/store/patterns'
     import { topics } from '~/store/topics'
 
@@ -11,20 +12,20 @@
 
     let form
     let keywords = []
-    let pattern = ''
 
     async function onsubmit (event) {
-        event.preventDefault()
-        patterns.add(pattern, keywords)
-        debug('Add pattern:', pattern)
+        patterns.add($pattern, keywords)
+        debug('Add pattern:', $pattern)
+
         form.reset()
+        event.preventDefault()
 
         return true
     }
 </script>
 
 <form bind:this={form} {onsubmit}>
-    <UrlPattern bind:pattern />
+    <UrlPattern />
     <label>
         Keyword topics:
         <select

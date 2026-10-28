@@ -1,69 +1,30 @@
 <script>
     import { toASCII, toUnicode } from 'punycode'
-    import { filter, filterIndexed, identity, includes, join, pick } from 'rambdax'
 
     import PatternField from '~/component/PatternField.svelte'
 
     import { debug } from '~/lib/debug'
+    import { cleanPattern, patternToInput } from '~/lib/pattern'
+    import { pattern } from '~/store/pattern'
 
-    const fields = [
-        'protocol',
-        'hostname',
-        'pathname',
-        'port',
-        'search',
-        'hash',
-    ]
-
-    let { pattern } = $props()
     let input = $state('')
     let up = $state(null)
 
-    function cleanPattern (up) {
-        return filter(v => v && v !== '*', pick(fields, up))
-    }
-
-    function maybe(field, obj) {
-        return obj[field] ? obj[field] : ''
-    }
-
-    function maybePrefix(field, prefix, obj) {
-        return obj[field] ? prefix + obj[field] : ''
-    }
-
-    function maybeSuffix(field, suffix, obj) {
-        return obj[field] ? obj[field] + suffix : ''
-    }
-
-    function patternToInput (p) {
-        const protocol = maybeSuffix('protocol', '://', p)
-        const host = join(':', filter(identity, [p.hostname, p.port]))
-        const pathname = maybe('pathname', p)
-        const search = maybePrefix('search', '?', p)
-        const hash = maybePrefix('hash', '#', p)
-
-        return join('', [
-            protocol,
-            host,
-            pathname,
-            search,
-            hash,
-        ])
-    }
-
     function onfieldinput (event) {
-        input = patternToInput(pattern)
+        input = patternToInput($pattern)
         if (event.target !== document.activeElement) {
             oninput()
         }
     }
 
     function onhostnameblur () {
-        pattern.hostname = toASCII(pattern.hostname)
+        $pattern.hostname = toASCII($pattern.hostname)
+        debug('hostname blur:', $pattern.hostname)
     }
 
     function onhostnamefocus () {
-        pattern.hostname = toUnicode(pattern.hostname)
+        $pattern.hostname = toUnicode($pattern.hostname)
+        debug('hostname focus:', $pattern.hostname)
     }
 
     function oninput () {
@@ -71,8 +32,8 @@
 
         try {
             up = new URLPattern(url, {ignoreCase: true})
-            pattern = cleanPattern(up)
-            debug('UrlPattern change:', input, up, pattern)
+            $pattern = cleanPattern(up)
+            debug('UrlPattern change:', input, up, $pattern)
         }
         catch (err) {
             up = null
@@ -98,13 +59,13 @@
     {#if up}
         <div class="pattern-fields">
             <PatternField
-                {pattern}
+                bind:pattern={$pattern}
                 field={'protocol'}
                 label='Protocol:'
                 oninput={onfieldinput}
                 />
             <PatternField
-                {pattern}
+                bind:pattern={$pattern}
                 field={'hostname'}
                 label='Hostname:'
                 onblur={onhostnameblur}
@@ -112,25 +73,25 @@
                 oninput={onfieldinput}
                 />
             <PatternField
-                {pattern}
+                bind:pattern={$pattern}
                 field={'port'}
                 label='Port:'
                 oninput={onfieldinput}
                 />
             <PatternField
-                {pattern}
+                bind:pattern={$pattern}
                 field={'pathname'}
                 label='Pathname:'
                 oninput={onfieldinput}
                 />
             <PatternField
-                {pattern}
+                bind:pattern={$pattern}
                 field={'search'}
                 label='Search:'
                 oninput={onfieldinput}
                 />
             <PatternField
-                {pattern}
+                bind:pattern={$pattern}
                 field={'hash'}
                 label='Hash:'
                 oninput={onfieldinput}

@@ -1,11 +1,13 @@
 <script>
     import ExpandTopic from '~/component/ExpandTopic.svelte'
+    import { cleanPattern, patternToInput } from '~/lib/pattern'
 
-    const { domain, onremove, pattern  } = $props()
+    const { onremove, pattern } = $props()
+    const input = $derived(patternToInput(pattern.up))
 </script>
 
 <article class="domain">
-    {#if domain !== '*'}
+    {#if input !== '*'}
         <button
             aria-label="Delete"
             class="delete"
@@ -15,7 +17,7 @@
             &times;
         </button>
     {/if}
-    <h3>{domain === '*' ? 'Everywhere' : domain}</h3>
+    <h3>{input === '*' ? 'Everywhere' : input}</h3>
 
     <ul class="rules">
         {#each pattern.kw as id}
