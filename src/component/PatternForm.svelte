@@ -38,4 +38,5 @@
             {/each}
         </select>
     </label>
+    <button type="submit">Add</button>
 </form>
