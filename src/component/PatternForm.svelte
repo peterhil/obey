@@ -24,7 +24,7 @@
 </script>
 
 <form bind:this={form} {onsubmit}>
-    <UrlPattern bind:value={pattern} />
+    <UrlPattern bind:pattern />
     <label>
         Keyword topics:
         <select

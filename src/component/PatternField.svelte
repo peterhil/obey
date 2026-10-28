@@ -3,6 +3,8 @@
         pattern,
         field = $bindable(),
         label,
+        onblur,
+        onfocus,
         oninput,
     } = $props()
 </script>
@@ -11,6 +13,8 @@
     {label}
     <input
         bind:value={pattern[field]}
+        {onblur}
+        {onfocus}
         {oninput}
         type="text"
         >

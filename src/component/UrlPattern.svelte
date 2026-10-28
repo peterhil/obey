@@ -1,4 +1,5 @@
 <script>
+    import { toASCII, toUnicode } from 'punycode'
     import { filter, filterIndexed, identity, includes, join, pick } from 'rambdax'
 
     import PatternField from '~/component/PatternField.svelte'
@@ -50,9 +51,19 @@
         ])
     }
 
-    function onfieldinput () {
+    function onfieldinput (event) {
         input = patternToInput(pattern)
-        oninput()
+        if (event.target !== document.activeElement) {
+            oninput()
+        }
+    }
+
+    function onhostnameblur () {
+        pattern.hostname = toASCII(pattern.hostname)
+    }
+
+    function onhostnamefocus () {
+        pattern.hostname = toUnicode(pattern.hostname)
     }
 
     function oninput () {
@@ -96,6 +107,8 @@
                 {pattern}
                 field={'hostname'}
                 label='Hostname:'
+                onblur={onhostnameblur}
+                onfocus={onhostnamefocus}
                 oninput={onfieldinput}
                 />
             <PatternField
