@@ -1,5 +1,5 @@
 <script>
-    import { filter, filterIndexed, includes, pick } from 'rambdax'
+    import { filter, filterIndexed, identity, includes, join, pick } from 'rambdax'
 
     import { debug } from '~/lib/debug'
 
@@ -13,15 +13,40 @@
     ]
 
     let { pattern } = $props()
-    let input
+    let input = $state('')
     let up = $state(null)
 
-    function oninput (event) {
+    function cleanPattern (up) {
+        return filter(v => v && v !== '*', pick(fields, up))
+    }
+
+    function patternToInput (p) {
+        const protocol = p.protocol ? p.protocol + '://' : ''
+        const host = join(':', filter(identity, [p.hostname, p.port]))
+        const pathname = p.pathname ? p.pathname : ''
+        const search = p.search ? '?' + p.search : ''
+        const hash = p.hash ? '#' + p.hash : ''
+
+        return join('', [
+            protocol,
+            host,
+            pathname,
+            search,
+            hash,
+        ])
+    }
+
+    function onfieldinput () {
+        input = patternToInput(pattern)
+        oninput()
+    }
+
+    function oninput () {
         const url = input.match('://') ? input : '*://' + input
 
         try {
             up = new URLPattern(url, {ignoreCase: true})
-            pattern = filter(v => v && v !== '*', pick(fields, up))
+            pattern = cleanPattern(up)
             debug('UrlPattern change:', input, up, pattern)
         }
         catch (err) {
@@ -49,27 +74,50 @@
         <div class="pattern-fields">
             <label hidden={!pattern.protocol}>
                 Protocol:
-                <input bind:value={pattern.protocol} type="text" readonly>
+                <input
+                    bind:value={pattern.protocol}
+                    oninput={onfieldinput}
+                    type="text"
+                    >
             </label>
             <label hidden={!pattern.hostname}>
                 Hostname:
-                <input bind:value={pattern.hostname} type="text" readonly>
+                <input
+                    bind:value={pattern.hostname}
+                    oninput={onfieldinput}
+                    type="text"
+                    >
             </label>
             <label hidden={!pattern.port}>
                 Port:
-                <input bind:value={pattern.port} type="text" readonly>
+                <input
+                    bind:value={pattern.port}
+                    oninput={onfieldinput}
+                    type="text"
+                    >
             </label>
             <label hidden={!pattern.pathname}>
                 Pathname:
-                <input bind:value={pattern.pathname} type="text" readonly>
+                <input
+                    bind:value={pattern.pathname}
+                    oninput={onfieldinput}
+                    type="text">
             </label>
             <label hidden={!pattern.search}>
-                Searchname:
-                <input bind:value={pattern.search} type="text" readonly>
+                Search:
+                <input
+                    bind:value={pattern.search}
+                    oninput={onfieldinput}
+                    type="text"
+                    >
             </label>
             <label hidden={!pattern.hash}>
-                Hashname:
-                <input bind:value={pattern.hash} type="text" readonly>
+                Hash:
+                <input
+                    bind:value={pattern.hash}
+                    oninput={onfieldinput}
+                    type="text"
+                    >
             </label>
         </div>
     {/if}
