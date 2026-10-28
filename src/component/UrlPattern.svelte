@@ -45,7 +45,8 @@
 <details class="url-pattern" open>
     <summary>
         <label class="pattern-input">
-            Add domain or pattern:
+            Add an <a href="https://developer.mozilla.org/en-US/docs/Web/API/URLPattern/URLPattern"
+            target="_blank">URL pattern</a>:
             <input
                 bind:value={input}
                 class:error={up === null}
@@ -53,6 +54,9 @@
                 name="input"
                 type="text"
                 >
+            <p>
+                <small>Note: Use asterisk like *example.com to match all subdomain levels.</small>
+            </p>
         </label>
     </summary>
 
