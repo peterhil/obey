@@ -1,8 +1,9 @@
 <script>
     import TopicKeywords from '~/component/TopicKeywords.svelte'
+
     import { debug } from '~/lib/debug'
 
-    const { topics } = $props()
+    import { topics } from '~/store/topics'
 
     async function onsubmit (event) {
         const form = event.currentTarget

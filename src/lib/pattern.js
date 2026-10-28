@@ -1,10 +1,18 @@
-import { filter, filterIndexed, identity, includes, join, pick } from 'rambdax'
+import {
+    filter,
+    identity,
+    join,
+    map,
+    pick,
+    sortByProps,
+    toPairs,
+} from 'rambdax'
 
 export const fields = [
     'protocol',
     'hostname',
-    'pathname',
     'port',
+    'pathname',
     'search',
     'hash',
 ]
@@ -39,4 +47,13 @@ export function patternToInput (p) {
         search,
         hash,
     ])
+}
+
+export function sortPatternMap (patternPairs) {
+    const sorted = sortByProps(
+        map(field => '1.up.' + field, fields),
+        patternPairs
+    )
+
+    return new Map(sorted)
 }

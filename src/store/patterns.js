@@ -1,20 +1,14 @@
 import { nanoid } from 'nanoid'
-import { filter, isEmpty, prepend, sortObject, startsWith, toPairs } from 'rambdax'
-import { writable } from 'svelte/store'
+import { toPairs } from 'rambdax'
+import { derived, writable } from 'svelte/store'
 
 import { debug } from '~/lib/debug'
+import { sortPatternMap } from '~/lib/pattern'
 import { syncGetPrefix, syncSet } from '~/store/sync'
 
 async function createPatterns () {
-    const allSites = {
-        "id": "up:*",
-        "protocol": "*",
-        "hostname": "*",
-        "kw": [],
-    }
     const saved = await syncGetPrefix('up:')
-    // const sorted = sortObject(topicSorter, saved)
-    const patterns = new Map(toPairs(saved))
+    let patterns = sortPatternMap(toPairs(saved))
 
     const { subscribe, set, update } = writable(patterns)
     debug('patternStorage get:', patterns)
@@ -25,7 +19,7 @@ async function createPatterns () {
             (patterns) => {
                 const id = 'up:' + nanoid()
                 const pattern = {
-                    up: urlPattern,  // TODO Clean default fields
+                    up: urlPattern,
                     kw,
                 }
 
@@ -49,3 +43,13 @@ async function createPatterns () {
 }
 
 export const patterns = await createPatterns()
+export const sortedPatterns = derived(
+    patterns,
+    ($patterns) => {
+        const pairs = [...$patterns.entries()]
+        const sorted = sortPatternMap(pairs)
+        debug('sortedPatterns store:', sorted)
+
+        return sorted
+    }
+)
