@@ -83,11 +83,13 @@ select.boundary {
     flex: 1 0 clamp(112px, 25%, 200px);
 }
 
-details.url-pattern {
-    padding: 1rem;
-    border: 1px solid lime;
+.pattern-form {
+    border: 1px solid var(--obey-color-action);
     border-radius: var(--pico-border-radius);
+    padding: 1rem;
+}
 
+details.url-pattern {
     .error {
         outline: 3px solid violet;
     }

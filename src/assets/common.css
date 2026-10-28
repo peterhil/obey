@@ -1,5 +1,5 @@
 :root {
-    --obey-color-action: #0cf;
+    --obey-color-action: var(--pico-primary-hover-background);
 
     @media (prefers-color-scheme: light) {
         --obey-color-text: #1a1a1a;
