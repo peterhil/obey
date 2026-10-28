@@ -1,5 +1,9 @@
 /* global MutationObserver, URLPattern, document, window */
 
+if (!globalThis.URLPattern) {
+  await import("urlpattern-polyfill")
+}
+
 import '~/assets/common.css'
 import './style.css'
 
