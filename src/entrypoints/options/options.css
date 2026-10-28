@@ -95,6 +95,14 @@ details.url-pattern {
     .pattern-fields {
         padding: 1rem;
         border: 1px solid #333;
+
+        @media (min-width: 640px) {
+            label {
+                display: grid;
+                grid-template-columns: minmax(120px, 1fr) 80%;
+                align-items: baseline;
+            }
+        }
     }
 }
 
