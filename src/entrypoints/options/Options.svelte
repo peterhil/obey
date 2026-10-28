@@ -2,8 +2,8 @@
     import Domains from '~/component/Domains.svelte'
     import Topics from '~/component/Topics.svelte'
 
-    import { patterns } from '~/store/patternStore'
-    import { topics } from '~/store/topicStore'
+    import { patterns } from '~/store/patterns'
+    import { topics } from '~/store/topics'
 </script>
 
 <div>

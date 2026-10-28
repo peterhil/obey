@@ -2,7 +2,7 @@
     import { isEmpty, switcher } from 'rambdax'
 
     import Keyword from '~/component/Keyword.svelte'
-    import { topics } from '~/store/topicStore'
+    import { topics } from '~/store/topics'
 
     const { id, topic } = $props()
     let input

@@ -4,8 +4,8 @@
 
     import UrlPattern from '~/component/UrlPattern.svelte'
 
-    // import { patterns } from '~/store/patternStore'
-    import { topics } from '~/store/topicStore'
+    // import { patterns } from '~/store/patterns'
+    import { topics } from '~/store/topics'
 
     let { patterns } = $props()
 

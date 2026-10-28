@@ -1,7 +1,7 @@
 <script>
     import Keyword from '~/component/Keyword.svelte'
 
-    import { topics } from '~/store/topicStore'
+    import { topics } from '~/store/topics'
 
     const { id } = $props()
 
