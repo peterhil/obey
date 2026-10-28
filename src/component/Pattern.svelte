@@ -6,7 +6,7 @@
     const input = $derived(patternToInput(pattern.up))
 </script>
 
-<article class="domain">
+<article class="pattern">
     {#if input !== '*'}
         <button
             aria-label="Delete"

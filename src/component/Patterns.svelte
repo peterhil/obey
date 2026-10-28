@@ -1,5 +1,5 @@
 <script>
-    import Domain from '~/component/Domain.svelte'
+    import Pattern from '~/component/Pattern.svelte'
     import PatternForm from '~/component/PatternForm.svelte'
 
     let { patterns } = $props()
@@ -11,15 +11,15 @@
     }
 </script>
 
-<section class="domains">
+<section class="patterns">
     <PatternForm {patterns} />
 
     {#each $patterns as [id, pattern] (id)}
-        <Domain
+        <Pattern
             {pattern}
             onremove={() => onremove(id)}
             >
-        </Domain>
+        </Pattern>
     {:else}
         No patterns!
     {/each}
