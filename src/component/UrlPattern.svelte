@@ -1,6 +1,8 @@
 <script>
     import { filter, filterIndexed, identity, includes, join, pick } from 'rambdax'
 
+    import PatternField from '~/component/PatternField.svelte'
+
     import { debug } from '~/lib/debug'
 
     const fields = [
@@ -20,12 +22,24 @@
         return filter(v => v && v !== '*', pick(fields, up))
     }
 
+    function maybe(field, obj) {
+        return obj[field] ? obj[field] : ''
+    }
+
+    function maybePrefix(field, prefix, obj) {
+        return obj[field] ? prefix + obj[field] : ''
+    }
+
+    function maybeSuffix(field, suffix, obj) {
+        return obj[field] ? obj[field] + suffix : ''
+    }
+
     function patternToInput (p) {
-        const protocol = p.protocol ? p.protocol + '://' : ''
+        const protocol = maybeSuffix('protocol', '://', p)
         const host = join(':', filter(identity, [p.hostname, p.port]))
-        const pathname = p.pathname ? p.pathname : ''
-        const search = p.search ? '?' + p.search : ''
-        const hash = p.hash ? '#' + p.hash : ''
+        const pathname = maybe('pathname', p)
+        const search = maybePrefix('search', '?', p)
+        const hash = maybePrefix('hash', '#', p)
 
         return join('', [
             protocol,
@@ -72,53 +86,42 @@
 
     {#if up}
         <div class="pattern-fields">
-            <label hidden={!pattern.protocol}>
-                Protocol:
-                <input
-                    bind:value={pattern.protocol}
-                    oninput={onfieldinput}
-                    type="text"
-                    >
-            </label>
-            <label hidden={!pattern.hostname}>
-                Hostname:
-                <input
-                    bind:value={pattern.hostname}
-                    oninput={onfieldinput}
-                    type="text"
-                    >
-            </label>
-            <label hidden={!pattern.port}>
-                Port:
-                <input
-                    bind:value={pattern.port}
-                    oninput={onfieldinput}
-                    type="text"
-                    >
-            </label>
-            <label hidden={!pattern.pathname}>
-                Pathname:
-                <input
-                    bind:value={pattern.pathname}
-                    oninput={onfieldinput}
-                    type="text">
-            </label>
-            <label hidden={!pattern.search}>
-                Search:
-                <input
-                    bind:value={pattern.search}
-                    oninput={onfieldinput}
-                    type="text"
-                    >
-            </label>
-            <label hidden={!pattern.hash}>
-                Hash:
-                <input
-                    bind:value={pattern.hash}
-                    oninput={onfieldinput}
-                    type="text"
-                    >
-            </label>
+            <PatternField
+                {pattern}
+                field={'protocol'}
+                label='Protocol:'
+                oninput={onfieldinput}
+                />
+            <PatternField
+                {pattern}
+                field={'hostname'}
+                label='Hostname:'
+                oninput={onfieldinput}
+                />
+            <PatternField
+                {pattern}
+                field={'port'}
+                label='Port:'
+                oninput={onfieldinput}
+                />
+            <PatternField
+                {pattern}
+                field={'pathname'}
+                label='Pathname:'
+                oninput={onfieldinput}
+                />
+            <PatternField
+                {pattern}
+                field={'search'}
+                label='Search:'
+                oninput={onfieldinput}
+                />
+            <PatternField
+                {pattern}
+                field={'hash'}
+                label='Hash:'
+                oninput={onfieldinput}
+                />
         </div>
     {/if}
 </details>
