@@ -14,7 +14,7 @@
 
     async function onsubmit (event) {
         const pattern = $patterns.get(id)
-        patterns.addKeyword(id, topicId)
+        patterns.addTopic(id, topicId)
         debug('Add topic to pattern:', pattern)
 
         form.reset()

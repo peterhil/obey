@@ -24,9 +24,9 @@
     <h3>{input === '*' ? 'Everywhere' : input}</h3>
 
     <ul class="rules">
-        {#each pattern.kw as id}
+        {#each pattern.kw as kwid}
             <li>
-                <ExpandTopic {id} />
+                <ExpandTopic id={kwid} patternId={id} />
             </li>
         {/each}
     </ul>
