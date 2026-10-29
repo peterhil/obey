@@ -58,13 +58,6 @@ async function obey () {
 
 const debouncedObey = debounce(obey, 500, true)
 
-const onRequest = (request) => {
-    if (request.type === 'xhr' && request.details.thirdParty === false) {
-        debug('XmlHttpRequest:', { request })
-        debouncedObey()
-    }
-}
-
 const onMutation = (mutations) => {
     // debug('Mutations:', mutations)
     debouncedObey()
@@ -87,12 +80,10 @@ export default defineContentScript({
             obey()
 
             observer.observe(document.body, { childList: true, subtree: true })
-            browser.runtime.onMessage.addListener(onRequest)
             ctx.addEventListener(window, 'wxt:locationchange', onNavigation)
 
             const removeInvalidatedListeners = ctx.onInvalidated(() => {
                 observer.disconnect()
-                browser.runtime.onMessage.removeListener(onRequest)
                 ctx.removeEventListener(window, 'wxt:locationchange', onNavigation)
             })
             removeInvalidatedListeners()
