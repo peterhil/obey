@@ -26,12 +26,12 @@
     <h1>Obey – hide content!</h1>
 
     <div class="card">
-        <button type="button" on:click={togglePause}>
-            {state.isPaused ? 'Enable' : 'Disable'}
-        </button>
-
         <button type="button" on:click={openOptionsPage}>
             Options
+        </button>
+
+        <button type="button" on:click={togglePause}>
+            {state.isPaused ? 'Enable' : 'Disable'}
         </button>
     </div>
 
