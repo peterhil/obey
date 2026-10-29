@@ -8,7 +8,7 @@ export default defineConfig({
     },
     autoIcons: {
         developmentIndicator: 'grayscale',
-        sizes: [64, 48, 32, 16],
+        sizes: [128, 64, 48, 32, 16],
     },
     extensionApi: 'webextension-polyfill',
     imports: {
