@@ -1,8 +1,8 @@
 <script>
     import { debug } from '~/lib/debug'
 
-    let { isPaused } = await browser.storage.sync.get({isPaused: false})
-    let state = $state({isPaused})
+    let { disabled } = await browser.storage.sync.get({disabled: false})
+    let state = $state({disabled})
 
     function openOptionsPage () {
         browser.runtime.openOptionsPage()
@@ -11,12 +11,12 @@
         return false
     }
 
-    async function togglePause () {
-        let { isPaused } = await browser.storage.sync.get({isPaused: false})
+    async function toggleDisabled () {
+        let { disabled } = await browser.storage.sync.get({disabled: false})
 
-        state.isPaused = !isPaused
-        await browser.storage.sync.set({isPaused: state.isPaused})
-        debug('togglePause:', {isPaused: state.isPaused})
+        state.disabled = !disabled
+        await browser.storage.sync.set({disabled: state.disabled})
+        debug('toggleDisabled:', {disabled: state.disabled})
 
         return false
     }
@@ -30,8 +30,8 @@
             Options
         </button>
 
-        <button type="button" on:click={togglePause}>
-            {state.isPaused ? 'Enable' : 'Disable'}
+        <button type="button" on:click={toggleDisabled}>
+            {state.disabled ? 'Enable' : 'Disable'}
         </button>
     </div>
 
