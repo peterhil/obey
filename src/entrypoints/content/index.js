@@ -32,7 +32,7 @@ async function updateKeywords (host) {
     return keywords
 }
 
-async function obey () {
+async function checkContent () {
     const minChildCount = 5
     const minWidth = 50
     const containers = await findContainers(minChildCount, minWidth)
@@ -46,6 +46,14 @@ async function obey () {
     if (isEmpty(keywords)) return
 
     await hideElements(keywords)
+}
+
+async function obey () {
+    const { isPaused } = await browser.storage.sync.get({isPaused: false})
+
+    if (isPaused) return
+
+    await checkContent()
 }
 
 const debouncedObey = debounce(obey, 500, true)

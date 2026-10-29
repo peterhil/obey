@@ -86,7 +86,7 @@ function markContainer (node) {
     const parentContainers = parents(node, '[data-obey="container"]')
 
     if (!isEmpty(parentContainers)) {
-        debug('Found a node with parent container:', {node, parentContainers})
+        debug('Found nested containers:', {node, parentContainers})
         parentContainers.forEach(node => node.dataset.obey = 'wrapper')
     }
 
