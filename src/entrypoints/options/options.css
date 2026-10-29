@@ -3,12 +3,20 @@
     --pico-form-element-spacing-vertical: 0.5rem;
 }
 
+html {
+    font-size: 14px;  /* Override PicoCSS fluid typography */
+
+    @media (min-width: 480px) {
+        font-size: 16px;
+    }
+}
+
 body {
     padding: 1rem;
     font-family: sans-serif;
 }
 
-.domain,
+.pattern,
 .topic {
     position: relative;
     border: 1px solid var(--obey-color-action);
@@ -34,7 +42,6 @@ body {
 }
 
 .keywords {
-    margin-inline: -0.5rem;
     padding-left: 0;
 
     li,
@@ -44,10 +51,10 @@ body {
     }
 
     li {
-        display: inline;
+        display: inline-block;
         list-style: none;
-        margin: 0.5rem;
-        padding: 0.5rem;
+        margin: 0.125rem;
+        padding: 0 0.25rem;
         padding-right: 0;
         /* border: 1px solid var(--obey-color-stripe); */
         background-image: linear-gradient(135deg, var(--obey-color-stripe) 25%, var(--obey-color-bg) 25%, var(--obey-color-bg) 50%, var(--obey-color-stripe) 50%, var(--obey-color-stripe) 75%, var(--obey-color-bg) 75%, var(--obey-color-bg) 100%);
@@ -76,11 +83,53 @@ details.keywords {
     summary {
         padding: 0.5rem;
         background: var(--obey-color-bg);
+        padding: 0.5rem 1rem;
+    }
+}
+
+.rules {
+    padding: 0;
+
+    li {
+        list-style: none;
     }
 }
 
 select.boundary {
     flex: 1 0 clamp(112px, 25%, 200px);
+}
+
+select[name=keywords] {
+    padding: 0;
+
+    option {
+        padding: 1rem;
+    }
+}
+
+.pattern-form {
+    border: 1px solid var(--obey-color-action);
+    border-radius: var(--pico-border-radius);
+    padding: 1rem;
+}
+
+details.url-pattern {
+    .error {
+        outline: 3px solid violet;
+    }
+
+    .pattern-fields {
+        padding: 1rem;
+        border: 1px solid #333;
+
+        @media (min-width: 640px) {
+            label {
+                display: grid;
+                grid-template-columns: minmax(120px, 1fr) 80%;
+                align-items: baseline;
+            }
+        }
+    }
 }
 
 button.add {

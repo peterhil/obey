@@ -1,5 +1,9 @@
 /* global MutationObserver, URLPattern, document, window */
 
+if (!globalThis.URLPattern) {
+    import('urlpattern-polyfill')
+}
+
 import '~/assets/common.css'
 import './style.css'
 
@@ -44,7 +48,7 @@ async function obey () {
     await hideElements(keywords)
 }
 
-const debouncedObey = debounce(obey, 1500)
+const debouncedObey = debounce(obey, 500, true)
 
 const onRequest = (request) => {
     if (request.type === 'xhr' && request.details.thirdParty === false) {
@@ -54,7 +58,7 @@ const onRequest = (request) => {
 }
 
 const onMutation = (mutations) => {
-    debug('Mutations:', mutations)
+    // debug('Mutations:', mutations)
     debouncedObey()
 }
 

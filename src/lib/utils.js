@@ -1,4 +1,3 @@
-import { encode } from 'punycode'
 import { sort, uniqWith } from 'rambdax'
 
 // Strip given regexp 're' from both ends of a string
@@ -18,5 +17,5 @@ export const iUniq = uniqWith((x, y) => normalise(x) === normalise(y))
 
 // Domains
 export const topLevelDomain = (hostname) => {
-    return encode(hostname).split('.').slice(-2).join('.')
+    return hostname.split('.').slice(-2).join('.')
 }

@@ -23,6 +23,9 @@ importers:
       rambdax:
         specifier: ^11.3.1
         version: 11.3.1
+      urlpattern-polyfill:
+        specifier: ^10.1.0
+        version: 10.1.0
       webextension-polyfill:
         specifier: ^0.12.0
         version: 0.12.0
@@ -2299,6 +2302,9 @@ packages:
 
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
+
+  urlpattern-polyfill@10.1.0:
+    resolution: {integrity: sha512-IGjKp/o0NL3Bso1PymYURCJxMPNAf/ILOpendP9f5B6e1rTJgdgiOvgfoT8VxCAdY+Wisb9uhGaJJf3yZ2V9nw==}
 
   vite@6.4.4:
     resolution: {integrity: sha512-xGjU/SyjeNyb0E4KxXBvYz/1C+3JXuujvf2hXNOtnlcE+58o5ajd9N2/n2VhkiJvpCP2qQasnUpx5PXNeI+p1Q==}
@@ -4647,6 +4653,8 @@ snapshots:
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
+
+  urlpattern-polyfill@10.1.0: {}
 
   vite@6.4.4(jiti@2.7.0)(lightningcss@1.33.0)(terser@5.37.0):
     dependencies:

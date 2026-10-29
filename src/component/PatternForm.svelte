@@ -2,32 +2,30 @@
     import { debug } from '~/lib/debug'
     import { cleanKeywords } from '~/lib/keywords'
 
-    // import { patterns } from '~/store/patternStore'
-    import { topics } from '~/store/topicStore'
+    import UrlPattern from '~/component/UrlPattern.svelte'
+
+    import { pattern } from '~/store/pattern'
+    // import { patterns } from '~/store/patterns'
+    import { topics } from '~/store/topics'
 
     let { patterns } = $props()
 
     let form
     let keywords = []
-    let pattern = ''
 
     async function onsubmit (event) {
-        const urlPattern = {hostname: pattern}
+        patterns.add($pattern, keywords)
+        debug('Add pattern:', $pattern)
 
-        event.preventDefault()
-        patterns.add(urlPattern, keywords)
-        debug('Add pattern:', urlPattern)
         form.reset()
+        event.preventDefault()
 
         return true
     }
 </script>
 
-<form bind:this={form} {onsubmit}>
-    <label>
-        Add domain or pattern:
-        <input bind:value={pattern} name="pattern" type="text">
-    </label>
+<form bind:this={form} {onsubmit} class="pattern-form">
+    <UrlPattern />
     <label>
         Keyword topics:
         <select
@@ -37,8 +35,11 @@
             size="3"
             >
             {#each [...$topics.entries()] as [id, topic] (id)}
-                <option value={id}>{topic.name}: {cleanKeywords(topic.hide)}</option>
+                <option value={id}>
+                    {topic.name}: {cleanKeywords(topic.hide)}
+                </option>
             {/each}
         </select>
     </label>
+    <button type="submit">Add</button>
 </form>
