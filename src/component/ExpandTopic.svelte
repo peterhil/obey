@@ -16,7 +16,6 @@
 
 <details class="keywords">
     <summary>
-        {topic.name}
         <button
             class="remove"
             onclick={removeTopic}
@@ -24,6 +23,7 @@
             >
             &times;
         </button>
+        {topic.name}
     </summary>
     {#each $topics.get(id).hide as word (word)}
         <Keyword {word} onremove={() => topics.removeWord(id, word)} />

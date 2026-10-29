@@ -83,6 +83,15 @@ details.keywords {
     summary {
         padding: 0.5rem;
         background: var(--obey-color-bg);
+        padding: 0.5rem 1rem;
+    }
+}
+
+.rules {
+    padding: 0;
+
+    li {
+        list-style: none;
     }
 }
 
