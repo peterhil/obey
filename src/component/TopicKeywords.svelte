@@ -45,16 +45,14 @@
 </script>
 
 <article class="topic">
-    {#if topic.name !== '*'}
-        <button
-            aria-label="Delete"
-            class="delete"
-            onclick={ondelete}
-            type="button"
-            >
-            &times;
-        </button>
-    {/if}
+    <button
+        aria-label="Delete"
+        class="delete"
+        onclick={ondelete}
+        type="button"
+        >
+        &times;
+    </button>
     <h3>{topic.name === '*' ? 'Everywhere' : topic.name}</h3>
 
     <ul class="keywords">

@@ -1,12 +1,15 @@
 import {
     filter,
     identity,
+    isEmpty,
     join,
     map,
     pick,
     sortByProps,
     toPairs,
 } from 'rambdax'
+
+import { debug } from '~/lib/debug'
 
 export const fields = [
     'protocol',
@@ -18,7 +21,14 @@ export const fields = [
 ]
 
 export function cleanPattern (up) {
-    return filter(v => v && v !== '*', pick(fields, up))
+    let cleaned = filter(v => v && v !== '*', pick(fields, up))
+
+    if (isEmpty(cleaned)) {
+        cleaned = {hostname: '*'}
+    }
+    debug('cleanPattern:', cleaned)
+
+    return cleaned
 }
 
 function maybe(field, obj) {
