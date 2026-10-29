@@ -3,6 +3,14 @@
     --pico-form-element-spacing-vertical: 0.5rem;
 }
 
+html {
+    font-size: 14px;  /* Override PicoCSS fluid typography */
+
+    @media (min-width: 480px) {
+        font-size: 16px;
+    }
+}
+
 body {
     padding: 1rem;
     font-family: sans-serif;
