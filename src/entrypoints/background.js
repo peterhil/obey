@@ -1,5 +1,10 @@
 import { debug } from '~/lib/debug'
 
+function onInstalled (details) {
+    browser.storage.sync.set({storageVersion: 1})
+    debug('Installed:', details)
+}
+
 function onRequestCompleted (details) {
     if (details.method === 'GET' && details.type === 'xmlhttprequest') {
         const message = { type: 'xhr', details }
@@ -23,6 +28,8 @@ export default defineBackground(() => {
         types: ['xmlhttprequest'],
         urls: ['<all_urls>'],
     }
+
+    browser.runtime.onInstalled.addListener(onInstalled)
 
     // browser.webRequest.onCompleted.addListener(
     //     onRequestCompleted,
