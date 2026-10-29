@@ -48,7 +48,7 @@ async function obey () {
     await hideElements(keywords)
 }
 
-const debouncedObey = debounce(obey, 1500)
+const debouncedObey = debounce(obey, 500, true)
 
 const onRequest = (request) => {
     if (request.type === 'xhr' && request.details.thirdParty === false) {
