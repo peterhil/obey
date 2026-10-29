@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { toPairs } from 'rambdax'
+import { toPairs, uniq } from 'rambdax'
 import { derived, writable } from 'svelte/store'
 
 import { debug } from '~/lib/debug'
@@ -33,6 +33,19 @@ async function createPatterns () {
             (patterns) => {
                 patterns.delete(id)
                 browser.storage.sync.remove(id)
+
+                return patterns
+            }
+        ),
+        addKeyword: (id, topicId) => update(
+            (patterns) => {
+                const pattern = patterns.get(id)
+                const keywords = uniq([...pattern.kw, topicId])
+
+                pattern.kw = keywords
+
+                syncSet(id, pattern)
+                patterns.set(id, pattern)
 
                 return patterns
             }

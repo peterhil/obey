@@ -1,8 +1,12 @@
 <script>
     import ExpandTopic from '~/component/ExpandTopic.svelte'
-    import { cleanPattern, patternToInput } from '~/lib/pattern'
+    import PatternTopicForm from '~/component/PatternTopicForm.svelte'
 
-    const { onremove, pattern } = $props()
+    import { cleanPattern, patternToInput } from '~/lib/pattern'
+    import { topics } from '~/store/topics'
+
+    const { id, onremove, pattern } = $props()
+
     const input = $derived(patternToInput(pattern.up))
 </script>
 
@@ -26,4 +30,6 @@
             </li>
         {/each}
     </ul>
+
+    <PatternTopicForm {id} {pattern} />
 </article>

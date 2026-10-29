@@ -17,6 +17,7 @@
 
     {#each [...$sortedPatterns.entries()] as [id, pattern] (id)}
         <Pattern
+            {id}
             pattern={$patterns.get(id)}
             onremove={() => onremove(id)}
             >
