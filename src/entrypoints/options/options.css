@@ -42,7 +42,6 @@ body {
 }
 
 .keywords {
-    margin-inline: -0.5rem;
     padding-left: 0;
 
     li,
@@ -52,10 +51,10 @@ body {
     }
 
     li {
-        display: inline;
+        display: inline-block;
         list-style: none;
-        margin: 0.5rem;
-        padding: 0.5rem;
+        margin: 0.125rem;
+        padding: 0 0.25rem;
         padding-right: 0;
         /* border: 1px solid var(--obey-color-stripe); */
         background-image: linear-gradient(135deg, var(--obey-color-stripe) 25%, var(--obey-color-bg) 25%, var(--obey-color-bg) 50%, var(--obey-color-stripe) 50%, var(--obey-color-stripe) 75%, var(--obey-color-bg) 75%, var(--obey-color-bg) 100%);
