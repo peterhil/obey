@@ -91,6 +91,14 @@ select.boundary {
     flex: 1 0 clamp(112px, 25%, 200px);
 }
 
+select[name=keywords] {
+    padding: 0;
+
+    option {
+        padding: 1rem;
+    }
+}
+
 .pattern-form {
     border: 1px solid var(--obey-color-action);
     border-radius: var(--pico-border-radius);

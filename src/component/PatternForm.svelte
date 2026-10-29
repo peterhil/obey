@@ -35,7 +35,9 @@
             size="3"
             >
             {#each [...$topics.entries()] as [id, topic] (id)}
-                <option value={id}>{topic.name}: {cleanKeywords(topic.hide)}</option>
+                <option value={id}>
+                    {topic.name}: {cleanKeywords(topic.hide)}
+                </option>
             {/each}
         </select>
     </label>
