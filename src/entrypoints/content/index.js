@@ -32,7 +32,7 @@ async function updateKeywords (host) {
     return keywords
 }
 
-async function obey () {
+async function checkContent () {
     const minChildCount = 5
     const minWidth = 50
     const containers = await findContainers(minChildCount, minWidth)
@@ -48,14 +48,15 @@ async function obey () {
     await hideElements(keywords)
 }
 
-const debouncedObey = debounce(obey, 500, true)
+async function obey () {
+    const { isPaused } = await browser.storage.sync.get({isPaused: false})
 
-const onRequest = (request) => {
-    if (request.type === 'xhr' && request.details.thirdParty === false) {
-        debug('XmlHttpRequest:', { request })
-        debouncedObey()
-    }
+    if (isPaused) return
+
+    await checkContent()
 }
+
+const debouncedObey = debounce(obey, 500, true)
 
 const onMutation = (mutations) => {
     // debug('Mutations:', mutations)
@@ -79,12 +80,10 @@ export default defineContentScript({
             obey()
 
             observer.observe(document.body, { childList: true, subtree: true })
-            browser.runtime.onMessage.addListener(onRequest)
             ctx.addEventListener(window, 'wxt:locationchange', onNavigation)
 
             const removeInvalidatedListeners = ctx.onInvalidated(() => {
                 observer.disconnect()
-                browser.runtime.onMessage.removeListener(onRequest)
                 ctx.removeEventListener(window, 'wxt:locationchange', onNavigation)
             })
             removeInvalidatedListeners()

@@ -47,6 +47,10 @@ a:hover {
 
 .card {
     padding: 2em;
+
+    button + button {
+        margin-block: 1rem;
+    }
 }
 
 button {

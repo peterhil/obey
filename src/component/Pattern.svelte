@@ -11,16 +11,14 @@
 </script>
 
 <article class="pattern">
-    {#if input !== '*'}
-        <button
-            aria-label="Delete"
-            class="delete"
-            onclick={onremove}
-            type="button"
-            >
-            &times;
-        </button>
-    {/if}
+    <button
+        aria-label="Delete"
+        class="delete"
+        onclick={onremove}
+        type="button"
+        >
+        &times;
+    </button>
     <h3>{input === '*' ? 'Everywhere' : input}</h3>
 
     <ul class="rules">
